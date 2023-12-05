@@ -6,3 +6,12 @@
 //
 
 import Foundation
+
+enum FeedLoaderResult {
+    case success([FeedItem])
+    case error(Error)
+}
+
+protocol FeedLoader {
+    func loadItems(completion: @escaping (FeedLoaderResult) -> Void)
+}
