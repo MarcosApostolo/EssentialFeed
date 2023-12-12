@@ -31,7 +31,7 @@ final class EssentialFeedAPIEndToEndTests: XCTestCase {
     // MARK: Helper
     
     private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> FeedLoaderResult? {
-        let urlSessionHTTPClient = URLSessionHTTPClient()
+        let urlSessionHTTPClient = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
         let url = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
         
         let loader = RemoteFeedLoader(client: urlSessionHTTPClient, url: url)
