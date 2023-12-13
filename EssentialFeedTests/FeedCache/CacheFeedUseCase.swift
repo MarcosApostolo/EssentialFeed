@@ -30,13 +30,17 @@ class LocalFeedLoader {
 class FeedStore {
     typealias DeletionCompletion = (Error?) -> Void
     
-    var deleteCachedFeedCallCount = 0
-    var insertions = [(items: [FeedItem], timestamp: Date)]()
-    
     private var deletionCompletions = [DeletionCompletion]()
     
-    func deleteCachedFeed(completion: @escaping DeletionCompletion) {
-        deleteCachedFeedCallCount = deleteCachedFeedCallCount + 1
+    private(set) var receivedMessages = [ReceivedMessage]()
+    
+    enum ReceivedMessage: Equatable {
+        case deleteCacheFeed
+        case insert([FeedItem], Date)
+    }
+    
+    func deleteCachedFeed(completion: @escaping DeletionCompletion) {        
+        receivedMessages.append(.deleteCacheFeed)
         
         self.deletionCompletions.append(completion)
     }
@@ -50,16 +54,16 @@ class FeedStore {
     }
     
     func insert(items: [FeedItem], timestamp: Date) {
-        insertions.append((items, timestamp))
+        receivedMessages.append(.insert(items, timestamp))
     }
 }
 
 final class CacheFeedUseCase: XCTestCase {
 
-    func test_shouldNotDeleteWhenCreatingCache() {
+    func test_shouldNotMessageStoreWhenCreatingCache() {
         let (_, store) = makeSUT()
         
-        XCTAssertEqual(store.deleteCachedFeedCallCount, 0)
+        XCTAssertEqual(store.receivedMessages, [])
     }
 
     func test_shouldRequestsCacheDeletion() {
@@ -69,7 +73,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         sut.save(items: items)
         
-        XCTAssertEqual(store.deleteCachedFeedCallCount, 1)
+        XCTAssertEqual(store.receivedMessages, [.deleteCacheFeed])
     }
     
     func test_shouldNotRequestInsertionWhenDeletionError() {
@@ -83,7 +87,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         store.completeDeletion(with: deletionError)
         
-        XCTAssertEqual(store.insertions.count, 0)
+        XCTAssertEqual(store.receivedMessages, [.deleteCacheFeed])
     }
     
     func test_shouldRequestNewCacheInsertionWithTimestampOnDeletionSuccess() {
@@ -97,8 +101,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         store.completeSuccessfully()
         
-        XCTAssertEqual(store.insertions.first?.items, items)
-        XCTAssertEqual(store.insertions.first?.timestamp, timestamp)
+        XCTAssertEqual(store.receivedMessages, [.deleteCacheFeed, .insert(items, timestamp)])
     }
     
     // MARK: Helpers
