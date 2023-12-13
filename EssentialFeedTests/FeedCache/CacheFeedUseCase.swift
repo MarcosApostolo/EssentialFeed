@@ -99,7 +99,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
         
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalFeedLoader.SaveResult]()
         
         sut?.save(items: [uniqueItems()], completion: { receivedResults.append($0) })
         
@@ -115,7 +115,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
         
-        var receivedResults = [Error?]()
+        var receivedResults = [LocalFeedLoader.SaveResult]()
         
         sut?.save(items: [uniqueItems()], completion: { receivedResults.append($0) })
         
@@ -171,8 +171,8 @@ final class CacheFeedUseCase: XCTestCase {
     
     
     private class FeedStoreSpy: FeedStore {
-        typealias DeletionCompletion = (Error?) -> Void
-        typealias InsertionCompletion = (Error?) -> Void
+        typealias DeletionCompletion = (LocalFeedLoader.SaveResult) -> Void
+        typealias InsertionCompletion = (LocalFeedLoader.SaveResult) -> Void
         
         private var deletionCompletions = [DeletionCompletion]()
         private var insertionCompletions = [InsertionCompletion]()
