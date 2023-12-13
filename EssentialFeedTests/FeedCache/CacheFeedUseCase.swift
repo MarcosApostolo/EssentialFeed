@@ -18,8 +18,9 @@ class LocalFeedLoader {
         self.currentDate = currentDate
     }
     
-    func save(items: [FeedItem]) {
+    func save(items: [FeedItem], completion: @escaping (Error?) -> Void) {
         store.deleteCachedFeed { [unowned self] error in
+            completion(error)
             if error == nil {
                 self.store.insert(items: items, timestamp: self.currentDate())
             }
@@ -71,7 +72,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         let items = [uniqueItems(), uniqueItems()]
         
-        sut.save(items: items)
+        sut.save(items: items) { _ in }
         
         XCTAssertEqual(store.receivedMessages, [.deleteCacheFeed])
     }
@@ -83,7 +84,7 @@ final class CacheFeedUseCase: XCTestCase {
         
         let deletionError = anyError()
         
-        sut.save(items: items)
+        sut.save(items: items) { _ in }
         
         store.completeDeletion(with: deletionError)
         
@@ -97,11 +98,33 @@ final class CacheFeedUseCase: XCTestCase {
         
         let items = [uniqueItems(), uniqueItems()]
                 
-        sut.save(items: items)
+        sut.save(items: items) { _ in }
         
         store.completeSuccessfully()
         
         XCTAssertEqual(store.receivedMessages, [.deleteCacheFeed, .insert(items, timestamp)])
+    }
+    
+    func test_shouldDeliverErrorWhenDeletionFailsWithError() {
+        let (sut, store) = makeSUT()
+        
+        let items = [uniqueItems(), uniqueItems()]
+        
+        let exp = expectation(description: "Wait to fail")
+        
+        let deletionError = anyError()
+        var receivedError: Error?
+        sut.save(items: items) { error in
+            receivedError = error
+            
+            exp.fulfill()
+        }
+                
+        store.completeDeletion(with: deletionError)
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(receivedError as NSError?, deletionError)
     }
     
     // MARK: Helpers
@@ -124,7 +147,7 @@ final class CacheFeedUseCase: XCTestCase {
         return URL(string: "https://any-url.com")!
     }
     
-    fileprivate func anyError() -> Error {
+    fileprivate func anyError() -> NSError {
         return NSError(domain: "any error", code: 1)
     }
 }
