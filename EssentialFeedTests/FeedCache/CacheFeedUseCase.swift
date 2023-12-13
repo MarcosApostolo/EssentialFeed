@@ -20,9 +20,10 @@ class LocalFeedLoader {
     
     func save(items: [FeedItem], completion: @escaping (Error?) -> Void) {
         store.deleteCachedFeed { [unowned self] error in
-            completion(error)
             if error == nil {
-                self.store.insert(items: items, timestamp: self.currentDate())
+                self.store.insert(items: items, timestamp: self.currentDate(), completion: completion)
+            } else {
+                completion(error)
             }
         }
     }
@@ -30,8 +31,10 @@ class LocalFeedLoader {
 
 class FeedStore {
     typealias DeletionCompletion = (Error?) -> Void
+    typealias InsertionCompletion = (Error?) -> Void
     
     private var deletionCompletions = [DeletionCompletion]()
+    private var insertionCompletions = [InsertionCompletion]()
     
     private(set) var receivedMessages = [ReceivedMessage]()
     
@@ -54,8 +57,13 @@ class FeedStore {
         deletionCompletions[index](nil)
     }
     
-    func insert(items: [FeedItem], timestamp: Date) {
+    func insert(items: [FeedItem], timestamp: Date, completion: @escaping (Error?) -> Void) {
         receivedMessages.append(.insert(items, timestamp))
+        insertionCompletions.append(completion)
+    }
+    
+    func completeInsertion(with error: Error, at index: Int = 0) {
+        insertionCompletions[index](error)
     }
 }
 
@@ -125,6 +133,29 @@ final class CacheFeedUseCase: XCTestCase {
         wait(for: [exp], timeout: 1.0)
         
         XCTAssertEqual(receivedError as NSError?, deletionError)
+    }
+    
+    func test_shouldDeliverErrorWhenInsertionFailsWithError() {
+        let (sut, store) = makeSUT()
+        
+        let items = [uniqueItems(), uniqueItems()]
+        
+        let exp = expectation(description: "Wait to fail")
+        
+        let insertionError = anyError()
+        var receivedError: Error?
+        sut.save(items: items) { error in
+            receivedError = error
+            
+            exp.fulfill()
+        }
+                
+        store.completeSuccessfully()
+        store.completeInsertion(with: insertionError)
+        
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(receivedError as NSError?, insertionError)
     }
     
     // MARK: Helpers
