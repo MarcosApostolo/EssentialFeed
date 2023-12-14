@@ -38,6 +38,8 @@ public final class LocalFeedLoader {
             switch result {
             case let .failure(error):
                 completion(.failure(error))
+                
+                store.deleteCachedFeed { _ in }
             case let .found(feed, timestamp) where self.validate(timestamp):
                 completion(.success(feed.toModels()))
             case .empty, .found:
