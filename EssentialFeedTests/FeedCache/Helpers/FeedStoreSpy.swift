@@ -9,10 +9,6 @@ import Foundation
 import EssentialFeed
 
 class FeedStoreSpy: FeedStore {
-    typealias DeletionCompletion = (LocalFeedLoader.SaveResult) -> Void
-    typealias InsertionCompletion = (LocalFeedLoader.SaveResult) -> Void
-    typealias RetrievalCompletion = (LocalFeedLoader.SaveResult) -> Void
-    
     private var deletionCompletions = [DeletionCompletion]()
     private var insertionCompletions = [InsertionCompletion]()
     private var retrievalCompletions = [RetrievalCompletion]()
@@ -58,10 +54,14 @@ class FeedStoreSpy: FeedStore {
     }
     
     func completeRetrieval(with error: Error, at index: Int = 0) {
-        retrievalCompletions[index](error)
+        retrievalCompletions[index](.failure(error))
     }
     
     func completeWithEmptyCache(at index: Int = 0) {
-        retrievalCompletions[index](nil)
+        retrievalCompletions[index](.empty)
+    }
+    
+    func completeRetrieval(with feed: [LocalFeedImage], timestamp: Date, at index: Int = 0) {
+        retrievalCompletions[index](.found(feed: feed, timestamp: timestamp))
     }
 }
