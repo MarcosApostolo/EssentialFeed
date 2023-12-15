@@ -48,18 +48,18 @@ public final class LocalFeedLoader {
             case .empty:
                 completion(.success([]))
             case .found:
-                store.deleteCachedFeed { _ in }
                 completion(.success([]))
             }
         }
     }
     
     public func validateCache() {
-        store.retrieve { [unowned self] result in            
+        store.retrieve { [unowned self] result in
             switch result {
             case .failure:
                 self.store.deleteCachedFeed { _ in }
-            default: break
+            case let .found(_, timestamp) where self.validate(timestamp): break
+            case .empty, .found: break
             }
         }
     }

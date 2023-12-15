@@ -130,7 +130,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_shouldDeleteCacheWhenCacheIsSevenDaysOld() {
+    func test_shouldNotHaveSideEffectsWhenCacheIsSevenDaysOld() {
         let fixedCurrentDate = Date()
         
         let sevenDaysOld = fixedCurrentDate.add(days: -7)
@@ -145,10 +145,10 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
 
         store.completeRetrieval(with: local, timestamp: sevenDaysOld)
         
-        XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCacheFeed])
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_shouldDeleteCacheWhenCacheIsMoreThanSevenDaysOld() {
+    func test_shouldNotHaveSideEffectsWhenCacheIsMoreThanSevenDaysOld() {
         let fixedCurrentDate = Date()
         
         let sevenDaysOld = fixedCurrentDate.add(days: -10)
@@ -163,7 +163,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
 
         store.completeRetrieval(with: local, timestamp: sevenDaysOld)
         
-        XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCacheFeed])
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
     func test_shouldNotDeliverResultAfterSUTDeallocation() {
