@@ -32,15 +32,21 @@ func anyURL() -> URL {
 
 
 extension Date {
-    func add(days: Int) -> Date {
+    private func add(days: Int) -> Date {
         return Calendar(identifier: .gregorian).date(byAdding: .day, value: days, to: self)!
     }
     
-    func add(seconds: TimeInterval) -> Date {
-        return self + seconds
+    func minusFeedCacheMaxAge() -> Date {
+        return add(days: -feedCacheMaxAgeInDays)
     }
     
-    func minusFeedCacheMaxAge() -> Date {
-        return add(days: -7)
+    private var feedCacheMaxAgeInDays: Int {
+        return 7
+    }
+}
+
+extension Date {
+    func add(seconds: TimeInterval) -> Date {
+        return self + seconds
     }
 }
