@@ -165,6 +165,39 @@ final class CodableFeedStoreTests: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
     
+    func test_shouldDeliverSameCacheWhenRetrievingTwiceAfterInsert() {
+        let sut = makeSUT()
+        
+        let exp = expectation(description: "Wait to finish")
+        
+        let (_, local) = uniqueImages()
+        
+        let timestamp = Date()
+           
+        sut.insert(local, timestamp: timestamp) { insertioError in
+            XCTAssertNil(insertioError)
+            
+            sut.retrieve { retrieveResult in
+                sut.retrieve { secondResult in
+                    switch (retrieveResult, secondResult) {
+                    case let ((.found(feed: retrievedFirstFeed, retrievedFirstTimestamp), .found(feed: retrievedSecondFeed, timestamp: retrievedSecondTimestamp))):
+                        XCTAssertEqual(retrievedFirstFeed, local)
+                        XCTAssertEqual(retrievedSecondFeed, local)
+                        
+                        XCTAssertEqual(retrievedFirstTimestamp, timestamp)
+                        XCTAssertEqual(retrievedSecondTimestamp, timestamp)
+                    default:
+                        XCTFail("Expected retrieving twice would get the same results, but got different results instead")
+                    }
+                }
+                
+                exp.fulfill()
+            }
+        }
+        
+        wait(for: [exp], timeout: 1.0)
+    }
+    
     // MARK: Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
         let sut = CodableFeedStore(storeURL: testSpecificStoreURL())
