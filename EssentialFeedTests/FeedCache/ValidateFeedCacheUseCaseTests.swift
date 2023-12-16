@@ -37,10 +37,10 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_shouldNotDeleteCacheWhenCacheIsLessThanSevenDaysOld() {
+    func test_shouldNotDeleteCacheWhenCacheIsLessThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let lessThanSevenDays = fixedCurrentDate.add(days: -7).add(seconds: 1)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: 1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -50,15 +50,15 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         sut.validateCache()
 
-        store.completeRetrieval(with: local, timestamp: lessThanSevenDays)
+        store.completeRetrieval(with: local, timestamp: expiredCacheTimestamp)
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
-    func test_shouldDeleteCacheWhenCacheIsSevenDaysOld() {
+    func test_shouldDeleteCacheWhenCacheIsEqualToExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let sevenDaysOld = fixedCurrentDate.add(days: -7)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge()
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -68,15 +68,15 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         sut.validateCache()
 
-        store.completeRetrieval(with: local, timestamp: sevenDaysOld)
+        store.completeRetrieval(with: local, timestamp: expiredCacheTimestamp)
         
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCacheFeed])
     }
     
-    func test_shouldDeleteCacheWhenCacheIsMoreThanSevenDaysOld() {
+    func test_shouldDeleteCacheWhenCacheIsMoreThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let sevenDaysOld = fixedCurrentDate.add(days: -10)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: -1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -86,7 +86,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         sut.validateCache()
 
-        store.completeRetrieval(with: local, timestamp: sevenDaysOld)
+        store.completeRetrieval(with: local, timestamp: expiredCacheTimestamp)
         
         XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCacheFeed])
     }
