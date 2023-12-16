@@ -36,7 +36,11 @@ class CodableFeedStore {
         }
     }
     
-    private let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("image-feed.store")
+    private let storeURL: URL
+    
+    init(storeURL: URL) {
+        self.storeURL = storeURL
+    }
     
     func retrieve(completion: @escaping FeedStore.RetrievalCompletion) {
         guard let data = try? Data(contentsOf: storeURL) else {
@@ -96,7 +100,7 @@ final class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_shouldDeliverEmptyWhenEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         
         let exp = expectation(description: "Wait to finish")
                 
@@ -114,7 +118,7 @@ final class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_shouldNotHaveSideEffectsAndDeliverEmptyTwiceWhenEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         
         let exp = expectation(description: "Wait to finish")
            
@@ -134,7 +138,7 @@ final class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_shouldDeliverCacheWhenRetrievingAfterInsert() {
-        let sut = CodableFeedStore()
+        let sut = makeSUT()
         
         let exp = expectation(description: "Wait to finish")
         
@@ -163,7 +167,7 @@ final class CodableFeedStoreTests: XCTestCase {
     
     // MARK: Helpers
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
-        let sut = CodableFeedStore()
+        let sut = CodableFeedStore(storeURL: testSpecificStoreURL())
         
         checkForMemoryLeaks(sut, file: file, line: line)
         
