@@ -153,6 +153,16 @@ final class CodableFeedStoreTests: XCTestCase {
         expect(sut, toRetrieve: .failure(anyError()))
     }
     
+    func test_shouldDeliverSameErrorTwiceOnRetrievalError() {
+        let storeURL = testSpecificStoreURL()
+        
+        let sut = makeSUT(with: storeURL)
+        
+        try! "invalid json".write(to: storeURL, atomically: false, encoding: .utf8)
+        
+        expect(sut, toRetrieveTwice: .failure(anyError()))
+    }
+    
     // MARK: Helpers
     private func makeSUT(with storeURL: URL? = nil, file: StaticString = #file, line: UInt = #line) -> CodableFeedStore {
         let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL())
