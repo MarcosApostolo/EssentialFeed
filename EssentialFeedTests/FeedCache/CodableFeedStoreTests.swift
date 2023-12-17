@@ -184,14 +184,14 @@ final class CodableFeedStoreTests: XCTestCase {
         
         let firstInsertionError = insert((uniqueImages().local, Date()), to: sut)
         
-        XCTAssertNil(firstInsertionError)
+        XCTAssertNil(firstInsertionError, "Expected no insertion error")
         
         let (_, latestLocal) = uniqueImages()
         let latestTimestamp = Date()
         
         let latestInsertionError = insert((latestLocal, latestTimestamp), to: sut)
         
-        XCTAssertNil(latestInsertionError)
+        XCTAssertNil(latestInsertionError, "Expected no insertion error")
         
         expect(sut, toRetrieve: .found(feed: latestLocal, timestamp: latestTimestamp))
     }
@@ -214,7 +214,7 @@ final class CodableFeedStoreTests: XCTestCase {
         
         let deletionError = deleteCache(from: sut)
         
-        XCTAssertNil(deletionError)
+        XCTAssertNil(deletionError, "Expected no deletion error")
         
         expect(sut, toRetrieve: .empty)
     }
@@ -227,11 +227,11 @@ final class CodableFeedStoreTests: XCTestCase {
         
         let insertionError = insert((feed, timestamp), to: sut)
         
-        XCTAssertNil(insertionError)
+        XCTAssertNil(insertionError, "Expected no insertion error")
         
         let deletionError = deleteCache(from: sut)
         
-        XCTAssertNil(deletionError)
+        XCTAssertNil(deletionError, "Expected no deletion error")
         
         expect(sut, toRetrieve: .empty)
     }
