@@ -16,6 +16,7 @@
 		4A11BC6F2B310F1700396625 /* CoreDataFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC6E2B310F1700396625 /* CoreDataFeedStoreSpecs.swift */; };
 		4A11BC722B31117600396625 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC702B31117600396625 /* FeedStore.xcdatamodeld */; };
 		4A11BC742B31138C00396625 /* CoreDataFeedStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC732B31138C00396625 /* CoreDataFeedStore.swift */; };
+		4A11BC752B3122A400396625 /* FeedStore.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC702B31117600396625 /* FeedStore.xcdatamodeld */; };
 		4A561C512B1FDD330033688D /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A561C462B1FDD330033688D /* EssentialFeed.framework */; };
 		4A561C612B1FDDB90033688D /* FeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A561C602B1FDDB90033688D /* FeedImage.swift */; };
 		4A561C632B1FDDEF0033688D /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A561C622B1FDDEF0033688D /* FeedLoader.swift */; };
@@ -405,6 +406,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A11BC752B3122A400396625 /* FeedStore.xcdatamodeld in Sources */,
 				4AF052982B22827100DEF1E7 /* FeedItemsMapper.swift in Sources */,
 				4A561C692B1FFC530033688D /* RemoteFeedLoader.swift in Sources */,
 				4A561C632B1FDDEF0033688D /* FeedLoader.swift in Sources */,
