@@ -80,8 +80,10 @@ final class CacheFeedUseCaseTests: XCTestCase {
         let exp = expectation(description: "Wait to fail")
         
         var receivedError: Error?
-        sut.save(feed: images) { error in
-            receivedError = error
+        sut.save(feed: images) { result in
+            if case let Result.failure(error) = result {
+                receivedError = error
+            }
             
             exp.fulfill()
         }
@@ -148,8 +150,10 @@ final class CacheFeedUseCaseTests: XCTestCase {
         let exp = expectation(description: "Wait to fail")
         
         var receivedError: Error?
-        sut.save(feed: items) { error in
-            receivedError = error
+        sut.save(feed: items) { result in
+            if case let Result.failure(error) = result {
+                receivedError = error
+            }
             
             exp.fulfill()
         }
