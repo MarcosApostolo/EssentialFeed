@@ -53,15 +53,15 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCount, 1)
     }
     
-    func test_pullToRefresh_loadsFeed() {
+    func test_userInitiatedReload_loadsFeed() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCount, 2)
         
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCount, 3)
     }
     
@@ -89,7 +89,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
-    func test_pullToRefresh_showLoadingIndicator() {
+    func test_userInitiatedReload_showLoadingIndicator() {
         let (sut, loader) = makeSUT()
         
         sut.simulateAppearance(with: {
@@ -100,12 +100,12 @@ final class FeedViewControllerTests: XCTestCase {
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
         
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
-    func test_pullToRefresh_stopsLoadingAfterCompletion() {
+    func test_userInitiatedReload_stopsLoadingAfterCompletion() {
         let (sut, loader) = makeSUT()
         
         sut.simulateAppearance(with: {
@@ -116,7 +116,7 @@ final class FeedViewControllerTests: XCTestCase {
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
         
-        sut.refreshControl?.simulatePullToRefresh()
+        sut.simulateUserInitiatedReload()
         
         XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
         
@@ -183,6 +183,10 @@ private extension FeedViewController {
         }
         
         refreshControl = fake
+    }
+    
+    func simulateUserInitiatedReload() {
+        refreshControl?.simulatePullToRefresh()
     }
 }
 
