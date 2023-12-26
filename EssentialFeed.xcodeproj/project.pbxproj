@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A0035322B3B55140042D3A9 /* UIView+Shimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A0035312B3B55140042D3A9 /* UIView+Shimmering.swift */; };
 		4A06CCF12B24FF8300B92152 /* EssentialFeedAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A06CCF02B24FF8300B92152 /* EssentialFeedAPIEndToEndTests.swift */; };
 		4A06CCF22B24FF8300B92152 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A561C462B1FDD330033688D /* EssentialFeed.framework */; };
 		4A06CCF92B25044500B92152 /* XCTTestCase+MemoryCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AC7AE172B249D3D00A97A76 /* XCTTestCase+MemoryCheck.swift */; };
@@ -107,6 +108,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		4A0035312B3B55140042D3A9 /* UIView+Shimmering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Shimmering.swift"; sourceTree = "<group>"; };
 		4A06CCE92B24FBAC00B92152 /* EssentialFeed.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeed.xctestplan; sourceTree = "<group>"; };
 		4A06CCEE2B24FF8300B92152 /* EssentialFeedAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A06CCF02B24FF8300B92152 /* EssentialFeedAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedAPIEndToEndTests.swift; sourceTree = "<group>"; };
@@ -333,6 +335,7 @@
 			children = (
 				4AC0E8A22B3B1BCC0034DB28 /* FeedViewController.swift */,
 				4AC0E8A42B3B21F50034DB28 /* FeedImageCell.swift */,
+				4A0035312B3B55140042D3A9 /* UIView+Shimmering.swift */,
 			);
 			path = EssentialFeediOS;
 			sourceTree = "<group>";
@@ -681,6 +684,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A0035322B3B55140042D3A9 /* UIView+Shimmering.swift in Sources */,
 				4AC0E8A32B3B1BCC0034DB28 /* FeedViewController.swift in Sources */,
 				4AC0E8A52B3B21F50034DB28 /* FeedImageCell.swift in Sources */,
 			);
