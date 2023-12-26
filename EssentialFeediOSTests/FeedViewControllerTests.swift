@@ -25,6 +25,12 @@ final class FeedViewController: UITableViewController {
         load()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        refreshControl?.beginRefreshing()
+    }
+    
     @objc private func load() {
         loader?.load { _ in }
     }
@@ -55,6 +61,14 @@ final class FeedViewControllerTests: XCTestCase {
         
         sut.refreshControl?.simulatePullToRefresh()
         XCTAssertEqual(loader.loadCount, 3)
+    }
+    
+    func test_viewDidLoad_showsLoadingIndicator() {
+//        let (sut, _) = makeSUT()
+//        
+//        sut.loadViewIfNeeded()
+//                
+//        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
     }
     
     // MARK: Helpers
