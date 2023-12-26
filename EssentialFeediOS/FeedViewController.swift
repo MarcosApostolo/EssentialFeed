@@ -34,6 +34,7 @@ final public class FeedViewController: UITableViewController {
     public override func viewDidLoad() {
         refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        tableView.prefetchDataSource = self
         
         load()
     }
@@ -56,7 +57,7 @@ final public class FeedViewController: UITableViewController {
     }
 }
 
-extension FeedViewController {
+extension FeedViewController: UITableViewDataSourcePrefetching {
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableModel.count
     }
@@ -91,5 +92,12 @@ extension FeedViewController {
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         feedImageDataLoaderTask[indexPath]?.cancel()
+    }
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach { indexPath in
+            let cellModel = tableModel[indexPath.row]
+            _ = imageLoader?.loadImageData(from: cellModel.url) { _ in }
+        }
     }
 }
