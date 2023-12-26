@@ -54,7 +54,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(loader.loadCount, 3, "Expected another loading request when the user initiates a load")
     }
     
-    func test_loadFeedActions_stopsLoadingAfterCompletion() {
+    func test_loadingFeedIndicator_isVisibleWhenFeedIsLoading() {
         let (sut, loader) = makeSUT()
         
         sut.simulateAppearance(with: {
