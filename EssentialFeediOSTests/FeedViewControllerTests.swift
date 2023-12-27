@@ -416,6 +416,8 @@ private extension FeedViewController {
             }
         }
         
+        feedRefreshViewController?.view = fake
+        
         refreshControl = fake
     }
     

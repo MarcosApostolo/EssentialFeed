@@ -8,56 +8,73 @@
 import UIKit
 import EssentialFeed
 
-public protocol FeedImageDataLoaderTask {
-    func cancel()
-}
-
-public protocol FeedImageDataLoader {
-    typealias Result = Swift.Result<Data, Error>
+public final class FeedRefreshViewController: NSObject {
+    lazy public var view: UIRefreshControl = {
+        view = UIRefreshControl()
+        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
+        return view
+    }()
     
-    func loadImageData(from url: URL, completion: @escaping (Result) -> Void) -> FeedImageDataLoaderTask
+    private let feedLoader: FeedLoader
+    
+    init(feedLoader: FeedLoader) {
+        self.feedLoader = feedLoader
+    }
+    
+    var onRefresh: (([FeedImage]) -> Void)?
+    
+    @objc public func refresh() {
+        view.beginRefreshing()
+        
+        feedLoader.load { [weak self] result in
+            if let feed = try? result.get() {
+                self?.onRefresh?(feed)
+            }
+            
+            self?.view.endRefreshing()
+        }
+    }
 }
 
 final public class FeedViewController: UITableViewController {
-    private var feedLoader: FeedLoader?
     private var imageLoader: FeedImageDataLoader?
-    private var tableModel = [FeedImage]()
+    private var tableModel = [FeedImage]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
     private(set) var feedImageDataLoaderTask = [IndexPath: FeedImageDataLoaderTask]()
+    public var feedRefreshViewController: FeedRefreshViewController?
     
     public convenience init(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) {
         self.init()
         
-        self.feedLoader = feedLoader
         self.imageLoader = imageLoader
+        self.feedRefreshViewController = FeedRefreshViewController(feedLoader: feedLoader)
     }
     
     public override func viewDidLoad() {
-        refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        refreshControl = feedRefreshViewController?.view
+        feedRefreshViewController?.onRefresh = { [weak self] feed in
+            self?.tableModel = feed
+        }
         tableView.prefetchDataSource = self
         
-        load()
+        feedRefreshViewController?.refresh()
     }
     
     public override func viewIsAppearing(_ animated: Bool) {
         refreshControl?.beginRefreshing()
     }
-
-    @objc private func load() {
-        refreshControl?.beginRefreshing()
-        
-        feedLoader?.load { [weak self] result in
-            if let feed = try? result.get() {
-                self?.tableModel = feed
-                self?.tableView.reloadData()
-            }
-            
-            self?.refreshControl?.endRefreshing()
-        }
+    
+    private func cancelTask(forRowAt indexPath: IndexPath) {
+        feedImageDataLoaderTask[indexPath]?.cancel()
+        feedImageDataLoaderTask[indexPath] = nil
     }
 }
 
-extension FeedViewController: UITableViewDataSourcePrefetching {
+extension FeedViewController {
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableModel.count
     }
@@ -91,13 +108,19 @@ extension FeedViewController: UITableViewDataSourcePrefetching {
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        feedImageDataLoaderTask[indexPath]?.cancel()
+        cancelTask(forRowAt: indexPath)
     }
-    
+}
+
+extension FeedViewController: UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
             let cellModel = tableModel[indexPath.row]
-            _ = imageLoader?.loadImageData(from: cellModel.url) { _ in }
+            feedImageDataLoaderTask[indexPath] = imageLoader?.loadImageData(from: cellModel.url) { _ in }
         }
+    }
+    
+    public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach(cancelTask)
     }
 }
