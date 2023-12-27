@@ -17,6 +17,7 @@ final public class FeedViewController: UITableViewController {
     }
     private(set) var feedImageDataLoaderTask = [IndexPath: FeedImageDataLoaderTask]()
     public var feedRefreshViewController: FeedRefreshViewController?
+    private var cellControllers = [IndexPath: FeedImageCellController]()
     
     public convenience init(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) {
         self.init()
@@ -52,34 +53,18 @@ extension FeedViewController {
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = tableModel[indexPath.row]
-        let cell = FeedImageCell()
+        let cellController = FeedImageCellController(model: model, imageLoader: imageLoader!)
         
-        cell.locationContainer.isHidden = (model.location == nil)
-        cell.descriptionLabel.text = model.description
-        cell.locationLabel.text = model.location
-        cell.feedImageRetryButton.isHidden = true
-        cell.feedImageContainer.startShimmering()
+        cellControllers[indexPath] = cellController
         
-        let loadImage = { [weak self, weak cell] in
-            guard let self = self else { return }
-            
-            self.feedImageDataLoaderTask[indexPath] = self.imageLoader?.loadImageData(from: model.url) { [weak cell] result in
-                let data = try? result.get()
-                let image = data.map(UIImage.init) ?? nil
-                cell?.feedImageView.image = image
-                cell?.feedImageRetryButton.isHidden = (image != nil)
-                cell?.feedImageContainer.stopShimmering()
-            }
-        }
-        
-        cell.onRetry = loadImage
-        loadImage()
+        let cell = cellController.view()
         
         return cell
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cancelTask(forRowAt: indexPath)
+        cellControllers[indexPath] = nil
     }
 }
 
