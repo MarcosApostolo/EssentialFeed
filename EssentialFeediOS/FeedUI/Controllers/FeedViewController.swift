@@ -63,7 +63,6 @@ extension FeedViewController {
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        cancelTask(forRowAt: indexPath)
         cellControllers[indexPath] = nil
     }
 }
