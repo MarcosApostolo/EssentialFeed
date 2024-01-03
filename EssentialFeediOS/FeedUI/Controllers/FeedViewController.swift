@@ -8,28 +8,23 @@
 import UIKit
 import EssentialFeed
 
-final public class FeedViewController: UITableViewController {
-    private var imageLoader: FeedImageDataLoader?
-    private var tableModel = [FeedImage]() {
+public final class FeedViewController: UITableViewController {
+    var tableModel = [FeedImageCellController]() {
         didSet {
             tableView.reloadData()
         }
     }
     public var feedRefreshViewController: FeedRefreshViewController?
-    private var cellControllers = [IndexPath: FeedImageCellController]()
     
-    public convenience init(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) {
+    convenience init(refreshController: FeedRefreshViewController) {
         self.init()
         
-        self.imageLoader = imageLoader
-        self.feedRefreshViewController = FeedRefreshViewController(feedLoader: feedLoader)
+        self.feedRefreshViewController = refreshController
     }
     
     public override func viewDidLoad() {
         refreshControl = feedRefreshViewController?.view
-        feedRefreshViewController?.onRefresh = { [weak self] feed in
-            self?.tableModel = feed
-        }
+        
         tableView.prefetchDataSource = self
         
         feedRefreshViewController?.refresh()
@@ -54,20 +49,15 @@ extension FeedViewController {
     }
     
     public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        removeCellController(forRowAt: indexPath)
+        cancelCellController(forRowAt: indexPath)
     }
     
-    private func removeCellController(forRowAt indexPath: IndexPath) {
-        cellControllers[indexPath] = nil
+    private func cancelCellController(forRowAt indexPath: IndexPath) {
+        cellController(forRowAt: indexPath).cancelLoad()
     }
     
     private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
-        let cellModel = tableModel[indexPath.row]
-        let cellController = FeedImageCellController(model: cellModel, imageLoader: imageLoader!)
-        
-        cellControllers[indexPath] = cellController
-        
-        return cellController
+        return tableModel[indexPath.row]
     }
 }
 
@@ -81,6 +71,6 @@ extension FeedViewController: UITableViewDataSourcePrefetching {
     }
     
     public func tableView(_ tableView: UITableView, cancelPrefetchingForRowsAt indexPaths: [IndexPath]) {
-        indexPaths.forEach(removeCellController)
+        indexPaths.forEach(cancelCellController)
     }
 }
