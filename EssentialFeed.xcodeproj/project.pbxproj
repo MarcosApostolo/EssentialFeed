@@ -240,7 +240,6 @@
 		4A0454212B3C9AB20025A77A /* FeedUI */ = {
 			isa = PBXGroup;
 			children = (
-				4AE32AB22B46366C0015CB43 /* Models */,
 				4AE32AAF2B46286F0015CB43 /* Composers */,
 				4A0454222B3C9AB90025A77A /* Controllers */,
 				4A0454232B3C9AC60025A77A /* Views */,
@@ -433,6 +432,7 @@
 		4A8CBF132B35CDF50071FD17 /* EssentialFeediOS */ = {
 			isa = PBXGroup;
 			children = (
+				4AD170D92B47814000C94A27 /* FeedPresentation */,
 				4A0454242B3C9ADB0025A77A /* FeedImageDataLoader */,
 				4A0454212B3C9AB20025A77A /* FeedUI */,
 			);
@@ -477,21 +477,21 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		4AD170D92B47814000C94A27 /* FeedPresentation */ = {
+			isa = PBXGroup;
+			children = (
+				4AE32AB32B4636770015CB43 /* FeedViewModel.swift */,
+				4AE32AB52B463DD70015CB43 /* FeedImageViewModel.swift */,
+			);
+			path = FeedPresentation;
+			sourceTree = "<group>";
+		};
 		4AE32AAF2B46286F0015CB43 /* Composers */ = {
 			isa = PBXGroup;
 			children = (
 				4AE32AB02B4628870015CB43 /* FeedUIComposer.swift */,
 			);
 			path = Composers;
-			sourceTree = "<group>";
-		};
-		4AE32AB22B46366C0015CB43 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				4AE32AB32B4636770015CB43 /* FeedViewModel.swift */,
-				4AE32AB52B463DD70015CB43 /* FeedImageViewModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		4AE864252B32585000D7DE1F /* EssentialFeedCacheIntegrationTests */ = {
