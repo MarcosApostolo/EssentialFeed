@@ -266,6 +266,23 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertNil(view?.renderedImage, "Expected no rendered image when an image load finishes after the view is not visible anymore")
     }
     
+    func test_feedImageView_isDisplayedWithAnimation() {
+        let (sut, loader) = makeSUT()
+        let image1 = makeImage(url: URL(string: "http://url-0.com")!)
+        
+        sut.loadViewIfNeeded()
+                
+        loader.completeFeedLoading(with: [image1])
+        
+        let cell = sut.simulateFeedImageViewVisible(at: 0)
+        
+        XCTAssertEqual(cell?.feedImageView.alpha, 0)
+        
+        loader.completeImageLoading(with: anyImageData())
+        
+        XCTAssertEqual(cell?.feedImageView.alpha, 1)
+    }
+    
     // MARK: Helpers
     func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (FeedViewController, LoaderSpy) {
         let loader = LoaderSpy()
