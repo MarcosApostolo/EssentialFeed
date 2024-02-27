@@ -8,22 +8,38 @@
 import UIKit
 import EssentialFeed
 
-public final class FeedViewController: UITableViewController {
+protocol FeedViewControllerDelegate {
+    func didRequestFeedRefresh()
+}
+
+public final class FeedViewController: UITableViewController, FeedLoadingView {
     var tableModel = [FeedImageCellController]() {
         didSet {
             tableView.reloadData()
         }
     }
-    @IBOutlet public var feedRefreshViewController: FeedRefreshViewController?
-    
     public override func viewDidLoad() {        
         tableView.prefetchDataSource = self
         
-        feedRefreshViewController?.refresh()
+        refresh()
     }
+    
+    var delegate: FeedViewControllerDelegate?
     
     public override func viewIsAppearing(_ animated: Bool) {
         refreshControl?.beginRefreshing()
+    }
+    
+    @IBAction private func refresh() {
+        delegate?.didRequestFeedRefresh()
+    }
+    
+    func display(_ viewModel: FeedLoadingViewModel) {
+        if viewModel.isLoading {
+            refreshControl?.beginRefreshing()
+        } else {
+            refreshControl?.endRefreshing()
+        }
     }
 }
 

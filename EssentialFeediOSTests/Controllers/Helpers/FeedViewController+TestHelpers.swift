@@ -63,9 +63,7 @@ extension FeedViewController {
                 fake.addTarget(target, action: Selector(action), for: .valueChanged)
             }
         }
-        
-        feedRefreshViewController?.view = fake
-        
+                
         refreshControl = fake
     }
     
