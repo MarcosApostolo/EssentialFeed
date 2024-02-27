@@ -18,9 +18,8 @@ public final class FeedViewController: UITableViewController, FeedLoadingView {
             tableView.reloadData()
         }
     }
-    public override func viewDidLoad() {        
-        tableView.prefetchDataSource = self
-        
+    
+    public override func viewDidLoad() {
         refresh()
     }
     
@@ -51,7 +50,7 @@ extension FeedViewController {
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellController = cellController(forRowAt: indexPath)
         
-        let cell = cellController.view()
+        let cell = cellController.view(in: tableView)
         
         return cell
     }

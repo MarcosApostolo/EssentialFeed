@@ -77,6 +77,9 @@ Location</string>
                                                             <state key="normal" title="↻">
                                                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="retryButtonTapped" destination="4Aa-lg-gTp" eventType="touchUpInside" id="VwJ-Pe-SVh"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.8901960784313725" green="0.8901960784313725" blue="0.8901960784313725" alpha="1" colorSpace="calibratedRGB"/>
@@ -118,12 +121,20 @@ Location</string>
                                         <constraint firstItem="AIZ-ON-RY8" firstAttribute="top" secondItem="ZOf-kB-Mm6" secondAttribute="topMargin" priority="999" constant="6" id="zeV-IS-QiH"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="H63-o4-rxp" id="PEM-ru-gqx"/>
+                                    <outlet property="feedImageContainer" destination="FAU-iA-TTE" id="AGz-En-dhm"/>
+                                    <outlet property="feedImageRetryButton" destination="ojQ-jM-69D" id="nbV-RP-fux"/>
+                                    <outlet property="feedImageView" destination="tsT-7G-iNQ" id="CPl-zi-6pm"/>
+                                    <outlet property="locationContainer" destination="iiY-WY-aBZ" id="r9w-LJ-6j1"/>
+                                    <outlet property="locationLabel" destination="gSb-GM-nc6" id="aQe-Ld-SOD"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="1hh-nG-9OR" id="1NU-uh-fkD"/>
                             <outlet property="delegate" destination="1hh-nG-9OR" id="r5Z-OS-EdU"/>
-                            <outlet property="prefetchDataSource" destination="1hh-nG-9OR" id="9XQ-fL-7iO"/>
+                            <outlet property="prefetchDataSource" destination="1hh-nG-9OR" id="yvX-Si-1Ix"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="yrT-VT-7jR" userLabel="Refresh Control">

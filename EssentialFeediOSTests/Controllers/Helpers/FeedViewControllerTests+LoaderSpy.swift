@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import XCTest
 import EssentialFeed
 import EssentialFeediOS
 
@@ -26,7 +27,7 @@ class LoaderSpy: FeedLoader, FeedImageDataLoader {
         feedRequests.append(completion)
     }
     
-    func completeFeedLoading(with feed: [FeedImage] = [], at index: Int) {
+    func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {        
         feedRequests[index](.success(feed))
     }
     
