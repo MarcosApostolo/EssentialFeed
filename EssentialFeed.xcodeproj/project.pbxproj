@@ -352,12 +352,12 @@
 			isa = PBXGroup;
 			children = (
 				4A06CD0A2B2509B600B92152 /* CI.xctestplan */,
-				4A8CBF132B35CDF50071FD17 /* EssentialFeediOS */,
 				4A561C482B1FDD330033688D /* EssentialFeed */,
 				4A561C542B1FDD330033688D /* EssentialFeedTests */,
+				4A8CBF132B35CDF50071FD17 /* EssentialFeediOS */,
+				4A8CBF1D2B35CDF60071FD17 /* EssentialFeediOSTests */,
 				4A06CCEF2B24FF8300B92152 /* EssentialFeedAPIEndToEndTests */,
 				4AE864252B32585000D7DE1F /* EssentialFeedCacheIntegrationTests */,
-				4A8CBF1D2B35CDF60071FD17 /* EssentialFeediOSTests */,
 				4A561C472B1FDD330033688D /* Products */,
 				4A8CBF2A2B35D8220071FD17 /* Frameworks */,
 			);
