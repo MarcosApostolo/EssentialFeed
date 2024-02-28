@@ -12,7 +12,7 @@ public final class FeedUIComposer {
     private init () {}
     
     public static func feedComposeWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let feedPresenterAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader)
+        let feedPresenterAdapter = FeedLoaderPresentationAdapter(feedLoader: MainQueueDispatchDecorator(decoratee: feedLoader))
         
         let feedController = FeedViewController.makeWith(
             delegate: feedPresenterAdapter,
@@ -102,33 +102,53 @@ private final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
 }
 
 private final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: FeedImageCellControllerDelegate where View.Image == Image {
-     private let model: FeedImage
-     private let imageLoader: FeedImageDataLoader
-     private var task: FeedImageDataLoaderTask?
+    private let model: FeedImage
+    private let imageLoader: FeedImageDataLoader
+    private var task: FeedImageDataLoaderTask?
 
-     var presenter: FeedImageViewPresenter<View, Image>?
+    var presenter: FeedImageViewPresenter<View, Image>?
 
-     init(model: FeedImage, imageLoader: FeedImageDataLoader) {
-         self.model = model
-         self.imageLoader = imageLoader
-     }
+    init(model: FeedImage, imageLoader: FeedImageDataLoader) {
+        self.model = model
+        self.imageLoader = imageLoader
+    }
 
-     func didRequestImage() {
-         presenter?.didStartLoadingImageData(for: model)
+    func didRequestImage() {
+        presenter?.didStartLoadingImageData(for: model)
 
-         let model = self.model
-         task = imageLoader.loadImageData(from: model.url) { [weak self] result in
-             switch result {
-             case let .success(data):
-                 self?.presenter?.didFinishLoadingImageData(with: data, for: model)
+        let model = self.model
+        task = imageLoader.loadImageData(from: model.url) { [weak self] result in
+            switch result {
+            case let .success(data):
+                self?.presenter?.didFinishLoadingImageData(with: data, for: model)
 
-             case let .failure(error):
-                 self?.presenter?.didFinishLoadingImageData(with: error, for: model)
-             }
-         }
-     }
+            case let .failure(error):
+                self?.presenter?.didFinishLoadingImageData(with: error, for: model)
+            }
+        }
+    }
 
-     func didCancelImageRequest() {
-         task?.cancel()
-     }
- }
+    func didCancelImageRequest() {
+        task?.cancel()
+    }
+}
+
+private final class MainQueueDispatchDecorator: FeedLoader {
+    private let decoratee: FeedLoader
+    
+    init(decoratee: FeedLoader) {
+        self.decoratee = decoratee
+    }
+    
+    func load(completion: @escaping (FeedLoader.Result) -> Void) {
+        decoratee.load { result in
+            if Thread.isMainThread {
+                completion(result)
+            } else {
+                DispatchQueue.main.async {
+                    completion(result)
+                }
+            }
+        }
+    }
+}
