@@ -31,6 +31,10 @@ extension FeedViewController {
         
         return ds?.tableView(tableView, cellForRowAt: index)
     }
+    
+    func simulateErrorViewTap() {
+        errorView?.button.simulateTap()
+    }
 }
 
 extension FeedViewController {

@@ -18,22 +18,25 @@
                             <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4oM-Pv-gZf">
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jSv-sS-8Cn">
                                     <rect key="frame" x="0.0" y="8" width="414" height="18"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
+                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                    <connections>
+                                        <action selector="hideMessage" destination="clu-9B-M8g" eventType="touchUpInside" id="Vgm-91-YIt"/>
+                                    </connections>
+                                </button>
                             </subviews>
                             <color key="backgroundColor" red="0.99951404330000004" green="0.41759261489999999" blue="0.4154433012" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
-                                <constraint firstItem="4oM-Pv-gZf" firstAttribute="leading" secondItem="clu-9B-M8g" secondAttribute="leading" id="2WW-nd-bKQ"/>
-                                <constraint firstAttribute="trailing" secondItem="4oM-Pv-gZf" secondAttribute="trailing" id="4Eb-6Z-Ymw"/>
-                                <constraint firstAttribute="bottom" secondItem="4oM-Pv-gZf" secondAttribute="bottom" constant="8" id="VpY-Zr-44q"/>
-                                <constraint firstItem="4oM-Pv-gZf" firstAttribute="top" secondItem="clu-9B-M8g" secondAttribute="top" constant="8" id="YJp-xY-bGC"/>
+                                <constraint firstItem="jSv-sS-8Cn" firstAttribute="leading" secondItem="clu-9B-M8g" secondAttribute="leading" id="90U-xE-f3b"/>
+                                <constraint firstItem="jSv-sS-8Cn" firstAttribute="top" secondItem="clu-9B-M8g" secondAttribute="top" constant="8" id="WgN-DN-eXa"/>
+                                <constraint firstAttribute="bottom" secondItem="jSv-sS-8Cn" secondAttribute="bottom" constant="8" id="Xkc-DH-ueu"/>
+                                <constraint firstAttribute="trailing" secondItem="jSv-sS-8Cn" secondAttribute="trailing" id="tPQ-jq-1Yl"/>
                             </constraints>
                             <connections>
-                                <outlet property="label" destination="4oM-Pv-gZf" id="4sm-7p-srR"/>
+                                <outlet property="button" destination="jSv-sS-8Cn" id="MYK-ba-SgR"/>
                             </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="pGT-Qn-vv2">

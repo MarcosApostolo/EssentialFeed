@@ -50,6 +50,6 @@ private extension FeedViewController {
     }
     
     func display(errorMessage: String) {
-        errorView?.message = errorMessage
+        errorView?.show(message: errorMessage)
     }
 }
