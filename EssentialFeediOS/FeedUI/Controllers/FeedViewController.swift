@@ -16,7 +16,7 @@ public final class ErrorView {
     public var errorMessage: String?
 }
 
-public final class FeedViewController: UITableViewController, FeedLoadingView {
+public final class FeedViewController: UITableViewController, FeedLoadingView, FeedErrorView {
     var tableModel = [FeedImageCellController]() {
         didSet {
             tableView.reloadData()
@@ -44,6 +44,10 @@ public final class FeedViewController: UITableViewController, FeedLoadingView {
         } else {
             refreshControl?.endRefreshing()
         }
+    }
+    
+    func display(_ viewModel: FeedErrorViewModel) {
+        errorView.errorMessage = viewModel.message
     }
 }
 

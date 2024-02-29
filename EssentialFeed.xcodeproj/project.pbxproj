@@ -81,6 +81,7 @@
 		4AF052962B22824400DEF1E7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF052952B22824400DEF1E7 /* HTTPClient.swift */; };
 		4AF052982B22827100DEF1E7 /* FeedItemsMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF052972B22827100DEF1E7 /* FeedItemsMapper.swift */; };
 		4AF0529B2B22A6B400DEF1E7 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF0529A2B22A6B400DEF1E7 /* URLSessionHTTPClientTests.swift */; };
+		4AF777842B90923800E1ADF0 /* FeedErrorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AF777832B90923800E1ADF0 /* FeedErrorViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -211,6 +212,7 @@
 		4AF052952B22824400DEF1E7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		4AF052972B22827100DEF1E7 /* FeedItemsMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedItemsMapper.swift; sourceTree = "<group>"; };
 		4AF0529A2B22A6B400DEF1E7 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
+		4AF777832B90923800E1ADF0 /* FeedErrorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedErrorViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -527,6 +529,7 @@
 				4AD170DC2B47945600C94A27 /* FeedImageViewPresenter.swift */,
 				4AD170DE2B479AAF00C94A27 /* FeedViewModel.swift */,
 				4AD170E02B479AC600C94A27 /* FeedLoadingViewModel.swift */,
+				4AF777832B90923800E1ADF0 /* FeedErrorViewModel.swift */,
 			);
 			path = FeedPresentation;
 			sourceTree = "<group>";
@@ -864,6 +867,7 @@
 				4A4FE82A2B8FE53200978F5B /* FeedLoaderPresentationAdapter.swift in Sources */,
 				4AC0E8A52B3B21F50034DB28 /* FeedImageCell.swift in Sources */,
 				4AD170E12B479AC600C94A27 /* FeedLoadingViewModel.swift in Sources */,
+				4AF777842B90923800E1ADF0 /* FeedErrorViewModel.swift in Sources */,
 				4A4FE8262B8FE2C000978F5B /* WeakRefVirtualProxy.swift in Sources */,
 				4A25C3BE2B8EAA69001392E9 /* UIImageView+Animations.swift in Sources */,
 				4AE32AB62B463DD70015CB43 /* FeedImageViewModel.swift in Sources */,
