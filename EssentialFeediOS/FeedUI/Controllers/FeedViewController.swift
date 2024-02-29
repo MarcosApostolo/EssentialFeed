@@ -34,12 +34,8 @@ public final class FeedViewController: UITableViewController, FeedLoadingView, F
         delegate?.didRequestFeedRefresh()
     }
     
-    func display(_ viewModel: FeedLoadingViewModel) {        
-        if viewModel.isLoading {
-            refreshControl?.beginRefreshing()
-        } else {
-            refreshControl?.endRefreshing()
-        }
+    func display(_ viewModel: FeedLoadingViewModel) {
+        refreshControl?.update(isLoading: viewModel.isLoading)
     }
     
     func display(_ viewModel: FeedErrorViewModel) {
