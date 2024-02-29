@@ -17,7 +17,7 @@ extension FeedViewController {
     }
     
     var errorMessage: String? {
-        errorView.errorMessage
+        errorView?.errorMessage
     }
     
     func numberOfRenderedFeedImageViews() -> Int {
