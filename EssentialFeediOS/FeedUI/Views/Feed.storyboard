@@ -32,11 +32,14 @@
                                 <constraint firstAttribute="bottom" secondItem="4oM-Pv-gZf" secondAttribute="bottom" constant="8" id="VpY-Zr-44q"/>
                                 <constraint firstItem="4oM-Pv-gZf" firstAttribute="top" secondItem="clu-9B-M8g" secondAttribute="top" constant="8" id="YJp-xY-bGC"/>
                             </constraints>
+                            <connections>
+                                <outlet property="label" destination="4oM-Pv-gZf" id="4sm-7p-srR"/>
+                            </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="pGT-Qn-vv2">
                             <rect key="frame" x="0.0" y="692" width="414" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FeedImageCell" rowHeight="580" id="4Aa-lg-gTp" customClass="FeedImageCell" customModule="EssentialFeediOS" customModuleProvider="target">

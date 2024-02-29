@@ -19,12 +19,12 @@ class FeedUISnapshotTests: XCTestCase {
     }
 
     func test_feedWithError() {
-//        let sut = makeSUT()
-//
-//        sut.display(errorMessage: "An error message")
-//
-//        assert(snapshot: sut.snapshot(for: .iPhone(style: .light)), named: "FEED_WITH_ERROR_light")
-//        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_ERROR_dark")
+        let sut = makeSUT()
+
+        sut.display(errorMessage: "An error message")
+
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .light)), named: "FEED_WITH_ERROR_light")
+        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_ERROR_dark")
     }
 
     // MARK: - Helpers
@@ -45,13 +45,11 @@ class FeedUISnapshotTests: XCTestCase {
 }
 
 private extension FeedViewController {
-    func display(_ stubs: [ImageStub]) {
-        let cells: [CellController] = stubs.map { stub in
-            let cellController = FeedImageCellController(viewModel: stub.viewModel, delegate: stub, selection: {})
-            stub.controller = cellController
-            return CellController(id: UUID(), cellController)
-        }
-
-        display(cells)
+    func display(_ model: [FeedImageCellController]) {
+        tableModel = model
+    }
+    
+    func display(errorMessage: String) {
+        errorView?.message = errorMessage
     }
 }
