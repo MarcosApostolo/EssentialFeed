@@ -12,12 +12,17 @@ protocol FeedViewControllerDelegate {
     func didRequestFeedRefresh()
 }
 
+public final class ErrorView {
+    public var errorMessage: String?
+}
+
 public final class FeedViewController: UITableViewController, FeedLoadingView {
     var tableModel = [FeedImageCellController]() {
         didSet {
             tableView.reloadData()
         }
     }
+    public let errorView = ErrorView()
     
     public override func viewDidLoad() {
         refresh()

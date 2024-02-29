@@ -16,6 +16,10 @@ extension FeedViewController {
         0
     }
     
+    var errorMessage: String? {
+        errorView.errorMessage
+    }
+    
     func numberOfRenderedFeedImageViews() -> Int {
         return tableView.numberOfRows(inSection: feedImageSection)
     }
