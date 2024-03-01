@@ -4,8 +4,7 @@
 //
 //  Created by Marcos Amaral on 27/12/23.
 //
-
-import UIKit
+import Foundation
 
 public protocol FeedImageDataLoaderTask {
     func cancel()
