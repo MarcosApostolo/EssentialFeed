@@ -14,7 +14,7 @@ final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: 
     private let imageLoader: FeedImageDataLoader
     private var task: FeedImageDataLoaderTask?
 
-    var presenter: FeedImageViewPresenter<View, Image>?
+    var presenter: FeedImagePresenter<View, Image>?
 
     init(model: FeedImage, imageLoader: FeedImageDataLoader) {
         self.model = model
