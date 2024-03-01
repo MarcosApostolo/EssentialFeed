@@ -34,11 +34,11 @@ public final class FeedViewController: UITableViewController, FeedLoadingView, F
         delegate?.didRequestFeedRefresh()
     }
     
-    func display(_ viewModel: FeedLoadingViewModel) {
+    public func display(_ viewModel: FeedLoadingViewModel) {
         refreshControl?.update(isLoading: viewModel.isLoading)
     }
     
-    func display(_ viewModel: FeedErrorViewModel) {
+    public func display(_ viewModel: FeedErrorViewModel) {
         if let errorMessage = viewModel.message {
             errorView?.show(message: errorMessage)
         } else {
