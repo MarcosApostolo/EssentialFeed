@@ -4,57 +4,87 @@
 //
 //  Created by Marcos Amaral on 09/12/23.
 //
-
 import XCTest
 import EssentialFeed
 
-final class EssentialFeedAPIEndToEndTests: XCTestCase {
-    func test_shouldGetFeedResultWithFixedDataAccount() {
+class EssentialFeedAPIEndToEndTests: XCTestCase {
+
+    func test_endToEndTestServerGETFeedResult_matchesFixedTestAccountData() {
         switch getFeedResult() {
-        case let .success(items):
-            XCTAssertEqual(items.count, 8, "Expected 8 items in the test account feed")
-            XCTAssertEqual(items[0], expectedImages(at: 0))
-            XCTAssertEqual(items[1], expectedImages(at: 1))
-            XCTAssertEqual(items[2], expectedImages(at: 2))
-            XCTAssertEqual(items[3], expectedImages(at: 3))
-            XCTAssertEqual(items[4], expectedImages(at: 4))
-            XCTAssertEqual(items[5], expectedImages(at: 5))
-            XCTAssertEqual(items[6], expectedImages(at: 6))
-            XCTAssertEqual(items[7], expectedImages(at: 7))
-        case let .failure(error):
-            XCTFail("Expected success feed result, got \(error) instead")
+        case let .success(imageFeed)?:
+            XCTAssertEqual(imageFeed.count, 8, "Expected 8 images in the test account image feed")
+            XCTAssertEqual(imageFeed[0], expectedImage(at: 0))
+            XCTAssertEqual(imageFeed[1], expectedImage(at: 1))
+            XCTAssertEqual(imageFeed[2], expectedImage(at: 2))
+            XCTAssertEqual(imageFeed[3], expectedImage(at: 3))
+            XCTAssertEqual(imageFeed[4], expectedImage(at: 4))
+            XCTAssertEqual(imageFeed[5], expectedImage(at: 5))
+            XCTAssertEqual(imageFeed[6], expectedImage(at: 6))
+            XCTAssertEqual(imageFeed[7], expectedImage(at: 7))
+            
+        case let .failure(error)?:
+            XCTFail("Expected successful feed result, got \(error) instead")
+            
         default:
-            XCTFail("Expected success feed result, got no result instead")
+            XCTFail("Expected successful feed result, got no result instead")
+        }
+        
+    }
+    
+    func test_endToEndTestServerGETFeedImageDataResult_matchesFixedTestAccountData() {
+        switch getFeedImageDataResult() {
+        case let .success(data)?:
+            XCTAssertFalse(data.isEmpty, "Expected non-empty image data")
+            
+        case let .failure(error)?:
+            XCTFail("Expected successful image data result, got \(error) instead")
+            
+        default:
+            XCTFail("Expected successful image data result, got no result instead")
         }
     }
     
-    // MARK: Helper
+    // MARK: - Helpers
     
     private func getFeedResult(file: StaticString = #file, line: UInt = #line) -> FeedLoader.Result? {
-        let urlSessionHTTPClient = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
-        let url = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
-        
-        let loader = RemoteFeedLoader(client: urlSessionHTTPClient, url: url)
-        
-        trackForMemoryLeaks(urlSessionHTTPClient)
-        trackForMemoryLeaks(loader)
+        let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed")!
+        let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
+        let loader = RemoteFeedLoader(client: client, url: testServerURL)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for load completion")
         
-        var receivedResult: FeedLoader.Result!
-        
-        loader.load(completion: { result in
+        var receivedResult: FeedLoader.Result?
+        loader.load { result in
             receivedResult = result
             exp.fulfill()
-        })
-        
+        }
         wait(for: [exp], timeout: 5.0)
         
         return receivedResult
     }
-
     
-    private func expectedImages(at index: Int) -> FeedImage {
+    private func getFeedImageDataResult(file: StaticString = #file, line: UInt = #line) -> FeedImageDataLoader.Result? {
+        let testServerURL = URL(string: "https://essentialdeveloper.com/feed-case-study/test-api/feed/73A7F70C-75DA-4C2E-B5A3-EED40DC53AA6/image")!
+        let client = URLSessionHTTPClient(session: URLSession(configuration: .ephemeral))
+        let loader = RemoteFeedImageDataLoader(client: client)
+        trackForMemoryLeaks(client, file: file, line: line)
+        trackForMemoryLeaks(loader, file: file, line: line)
+        
+        let exp = expectation(description: "Wait for load completion")
+        
+        var receivedResult: FeedImageDataLoader.Result?
+        _ = loader.loadImageData(from: testServerURL) { result in
+            receivedResult = result
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 5.0)
+        
+        return receivedResult
+    }
+    
+    private func expectedImage(at index: Int) -> FeedImage {
         return FeedImage(
             id: id(at: index),
             description: description(at: index),
