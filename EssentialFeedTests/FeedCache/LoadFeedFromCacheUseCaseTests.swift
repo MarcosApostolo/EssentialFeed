@@ -26,7 +26,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_shouldReceiveErrorWhenRetrievalError() {
         let (sut, store) = makeSUT()
         
-        let expectedError = anyError()
+        let expectedError = anyNSError()
         
         expect(sut, toCompleteWith: .failure(expectedError), when: {
             store.completeRetrieval(with: expectedError)
@@ -93,7 +93,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_shouldNotHaveSideEffectsWhenRetrievalError() {
         let (sut, store) = makeSUT()
         
-        let error = anyError()
+        let error = anyNSError()
         
         sut.load { _ in }
         
@@ -171,7 +171,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
         
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
         
-        let error = anyError()
+        let error = anyNSError()
         
         var receivedResult = [LocalFeedLoader.LoadResult]()
         

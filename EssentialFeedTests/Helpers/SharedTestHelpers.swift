@@ -1,22 +1,30 @@
 //
-//  FeedCacheTestHelpers.swift
+//  SharedTestHelpers.swift
 //  EssentialFeedTests
 //
-//  Created by Marcos Amaral on 14/12/23.
+//  Created by Marcos Amaral on 02/03/24.
 //
 
 import Foundation
 import EssentialFeed
 
-func anyError() -> NSError {
-    return NSError(domain: "any error", code: 1)
+public func anyData() -> Data {
+    return Data("any data".utf8)
 }
 
-func uniqueImage() -> FeedImage {
+public func uniqueImage() -> FeedImage {
     return FeedImage(id: UUID(), description: "any", location: "any", url: anyURL())
 }
 
-func uniqueImages() -> (model: [FeedImage], local: [LocalFeedImage]) {
+public func anyURL() -> URL {
+    return URL(string: "https://any-url.com")!
+}
+
+public func anyNSError() -> NSError {
+    return NSError(domain: "any error", code: 1)
+}
+
+public func uniqueImages() -> (model: [FeedImage], local: [LocalFeedImage]) {
     let images = [uniqueImage(), uniqueImage()]
     
     let localImages = images.map {
@@ -25,11 +33,6 @@ func uniqueImages() -> (model: [FeedImage], local: [LocalFeedImage]) {
     
     return (images, localImages)
 }
-
-func anyURL() -> URL {
-    return URL(string: "https://any-url.com")!
-}
-
 
 extension Date {
     private func add(days: Int) -> Date {

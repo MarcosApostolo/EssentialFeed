@@ -18,7 +18,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_shouldDeleteWhenRetrievalError() {
         let (sut, store) = makeSUT()
         
-        let error = anyError()
+        let error = anyNSError()
         
         sut.validateCache()
         
