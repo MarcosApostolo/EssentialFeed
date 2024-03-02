@@ -20,7 +20,7 @@ class RemoteFeedImageDataLoader {
     }
     
     private struct HTTPTaskWrapper: FeedImageDataLoaderTask {
-        let wrapped: HttpClientTask
+        let wrapped: HTTPClientTask
         
         func cancel() {
             wrapped.cancel()
@@ -167,7 +167,7 @@ class RemoteFeedImageDataLoaderTests: XCTestCase {
     
         private var messages = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
         
-        private struct Task: HttpClientTask {
+        private struct Task: HTTPClientTask {
             func cancel() {
                 
             }
@@ -178,7 +178,7 @@ class RemoteFeedImageDataLoaderTests: XCTestCase {
         }
         private(set) var cancelledURLs = [URL]()
 
-        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> HttpClientTask {
+        func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) -> HTTPClientTask {
             messages.append((url, completion))
             
             return Task()
