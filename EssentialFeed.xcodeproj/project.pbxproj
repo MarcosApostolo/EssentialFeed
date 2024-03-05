@@ -34,7 +34,7 @@
 		4A211F1D2B93681000773EA3 /* RemoteFeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A211F1C2B93681000773EA3 /* RemoteFeedImageDataLoader.swift */; };
 		4A211F212B93727900773EA3 /* HTTPURLResponse+StatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A211F1E2B9371E000773EA3 /* HTTPURLResponse+StatusCode.swift */; };
 		4A211F232B9372DD00773EA3 /* URLProtocolStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A211F222B9372DD00773EA3 /* URLProtocolStub.swift */; };
-		4A22746A2B95D5C9005AC9F4 /* LocalFeedImageDataLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2274692B95D5C9005AC9F4 /* LocalFeedImageDataLoaderTests.swift */; };
+		4A22746A2B95D5C9005AC9F4 /* LoadFeedImageDataFromCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A2274692B95D5C9005AC9F4 /* LoadFeedImageDataFromCacheUseCaseTests.swift */; };
 		4A22746C2B95DD6E005AC9F4 /* FeedImageDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22746B2B95DD6E005AC9F4 /* FeedImageDataStore.swift */; };
 		4A22746E2B95DD96005AC9F4 /* LocalFeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A22746D2B95DD96005AC9F4 /* LocalFeedImageDataLoader.swift */; };
 		4A25C3BC2B8EA8ED001392E9 /* UITableView+CellDequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A25C3BB2B8EA8ED001392E9 /* UITableView+CellDequeueing.swift */; };
@@ -186,7 +186,7 @@
 		4A211F1C2B93681000773EA3 /* RemoteFeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteFeedImageDataLoader.swift; sourceTree = "<group>"; };
 		4A211F1E2B9371E000773EA3 /* HTTPURLResponse+StatusCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+StatusCode.swift"; sourceTree = "<group>"; };
 		4A211F222B9372DD00773EA3 /* URLProtocolStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLProtocolStub.swift; sourceTree = "<group>"; };
-		4A2274692B95D5C9005AC9F4 /* LocalFeedImageDataLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFeedImageDataLoaderTests.swift; sourceTree = "<group>"; };
+		4A2274692B95D5C9005AC9F4 /* LoadFeedImageDataFromCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFeedImageDataFromCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		4A22746B2B95DD6E005AC9F4 /* FeedImageDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataStore.swift; sourceTree = "<group>"; };
 		4A22746D2B95DD96005AC9F4 /* LocalFeedImageDataLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalFeedImageDataLoader.swift; sourceTree = "<group>"; };
 		4A25C3BB2B8EA8ED001392E9 /* UITableView+CellDequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CellDequeueing.swift"; sourceTree = "<group>"; };
@@ -557,7 +557,7 @@
 				4A6EEE3D2B2A7D2A0014DC97 /* LoadFeedFromCacheUseCaseTests.swift */,
 				4AAE75172B2BC8C700CF0F3C /* ValidateFeedCacheUseCaseTests.swift */,
 				4A11BC6E2B310F1700396625 /* CoreDataFeedStoreTests.swift */,
-				4A2274692B95D5C9005AC9F4 /* LocalFeedImageDataLoaderTests.swift */,
+				4A2274692B95D5C9005AC9F4 /* LoadFeedImageDataFromCacheUseCaseTests.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -964,7 +964,7 @@
 				4AF181592B9154F9004D6E0C /* FeedLocalizationTests.swift in Sources */,
 				4A92519C2B2FAC360003FE7B /* FeedStoreSpecs.swift in Sources */,
 				4AC7AE182B249D3D00A97A76 /* XCTTestCase+MemoryCheck.swift in Sources */,
-				4A22746A2B95D5C9005AC9F4 /* LocalFeedImageDataLoaderTests.swift in Sources */,
+				4A22746A2B95D5C9005AC9F4 /* LoadFeedImageDataFromCacheUseCaseTests.swift in Sources */,
 				4A8E8F812B93669E006F41B9 /* HTTPClientSpy.swift in Sources */,
 				4A11BC6C2B310E1F00396625 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift in Sources */,
 				4A9A880C2B292905007DF5AA /* CacheFeedUseCaseTests.swift in Sources */,
