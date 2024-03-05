@@ -396,7 +396,6 @@
 				4A11BC692B310D9300396625 /* XCTestCase+FailableInsertFeedStoreSpecs.swift */,
 				4A11BC6B2B310E1F00396625 /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */,
 				4A92519D2B2FACE00003FE7B /* FeedStoreSpecs+XCTestCase.swift */,
-				4A1D12B22B97236300A7F4F2 /* CacheFeedImageDataUseCaseTests.swift */,
 			);
 			path = FeedStoreSpecs;
 			sourceTree = "<group>";
@@ -561,6 +560,7 @@
 				4A11BC6D2B310E8300396625 /* FeedStoreSpecs */,
 				4A9A880B2B292905007DF5AA /* CacheFeedUseCaseTests.swift */,
 				4A6EEE3D2B2A7D2A0014DC97 /* LoadFeedFromCacheUseCaseTests.swift */,
+				4A1D12B22B97236300A7F4F2 /* CacheFeedImageDataUseCaseTests.swift */,
 				4AAE75172B2BC8C700CF0F3C /* ValidateFeedCacheUseCaseTests.swift */,
 				4A11BC6E2B310F1700396625 /* CoreDataFeedStoreTests.swift */,
 				4A2274692B95D5C9005AC9F4 /* LoadFeedImageDataFromCacheUseCaseTests.swift */,
