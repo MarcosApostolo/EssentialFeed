@@ -8,7 +8,6 @@
 import Foundation
 
 public protocol FeedImageDataStore {
-    typealias Result = Swift.Result<Data?, Error>
     typealias InsertionResult = Swift.Result<Void, Error>
     typealias RetrievalResult = Swift.Result<Data?, Error>
 
