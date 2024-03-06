@@ -20,7 +20,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         let error = anyNSError()
         
-        sut.validateCache()
+        sut.validateCache { _ in }
         
         store.completeRetrieval(with: error)
         
@@ -30,7 +30,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_shouldNotDeleteCacheWhenEmptyCache() {
         let (sut, store) = makeSUT()
                 
-        sut.validateCache()
+        sut.validateCache { _ in }
         
         store.completeWithEmptyCache()
         
@@ -48,7 +48,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         let (_, local) = uniqueImages()
         
-        sut.validateCache()
+        sut.validateCache { _ in }
 
         store.completeRetrieval(with: local, timestamp: expiredCacheTimestamp)
         
@@ -66,7 +66,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         let (_, local) = uniqueImages()
         
-        sut.validateCache()
+        sut.validateCache { _ in }
 
         store.completeRetrieval(with: local, timestamp: expiredCacheTimestamp)
         
@@ -84,7 +84,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         let (_, local) = uniqueImages()
         
-        sut.validateCache()
+        sut.validateCache { _ in }
 
         store.completeRetrieval(with: local, timestamp: expiredCacheTimestamp)
         
@@ -96,7 +96,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         
         var sut: LocalFeedLoader? = LocalFeedLoader(store: store, currentDate: Date.init)
         
-        sut?.validateCache()
+        sut?.validateCache { _ in }
         
         sut = nil
         
