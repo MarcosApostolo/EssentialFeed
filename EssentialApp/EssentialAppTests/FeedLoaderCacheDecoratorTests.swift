@@ -20,7 +20,7 @@ final class FeedLoaderCacheDecorator: FeedLoader {
     func load(completion: @escaping (FeedLoader.Result) -> Void) {
         decoratee.load { [weak self] result in
             completion(result.map { feed in
-                self?.cache.save(feed) { _ in }
+                self?.cache.save(feed: feed) { _ in }
                 
                 return feed
             })
@@ -77,7 +77,7 @@ final class FeedLoaderCacheDecoratorTests: XCTestCase, FeedLoaderTestCase {
             case save([FeedImage])
         }
 
-        func save(_ feed: [FeedImage], completion: @escaping (FeedCache.Result) -> Void) {
+        func save(feed: [FeedImage], completion: @escaping (FeedCache.Result) -> Void) {
             messages.append(.save(feed))
             completion(.success(()))
         }
