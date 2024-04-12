@@ -79,8 +79,4 @@ class FeedLoaderWithFallbackCompositeTests: XCTestCase {
             completion(result)
         }
     }
-
-    private func anyNSError() -> NSError {
-        return NSError(domain: "any error", code: 0)
-    }
 }
