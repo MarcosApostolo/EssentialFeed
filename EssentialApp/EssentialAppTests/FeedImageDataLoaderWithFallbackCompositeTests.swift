@@ -9,6 +9,9 @@ import XCTest
 import EssentialFeed
 
 class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
+    let primaryLoader: FeedImageDataLoader
+    let fallbackLoader: FeedImageDataLoader
+    
     private class Task: FeedImageDataLoaderTask {
         func cancel() {
 
@@ -16,11 +19,12 @@ class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
     }
 
     init(primary: FeedImageDataLoader, fallback: FeedImageDataLoader) {
-
+        self.primaryLoader = primary
+        self.fallbackLoader = fallback
     }
     
     func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> EssentialFeed.FeedImageDataLoaderTask {
-        
+        let _ = primaryLoader.loadImageData(from: url, completion: completion)
         
         return Task()
     }
@@ -34,6 +38,20 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         let _ = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
         
         XCTAssertTrue(primaryLoader.loadedImageURLs.isEmpty)
+        XCTAssertTrue(fallbackLoader.loadedImageURLs.isEmpty)
+    }
+    
+    func test_loadImageData_loadsFromPrimaryLoaderFirst() {
+        let primaryLoader = LoaderSpy()
+        let fallbackLoader = LoaderSpy()
+        
+        let url = anyURL()
+        
+        let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        
+        let _ = sut.loadImageData(from: url) { _ in }
+        
+        XCTAssertEqual(primaryLoader.loadedImageURLs, [url])
         XCTAssertTrue(fallbackLoader.loadedImageURLs.isEmpty)
     }
     
@@ -55,5 +73,8 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
             return Task()
         }
     }
-
+    
+    private func anyURL() -> URL {
+        return URL(string: "http://a-url.com")!
+    }
 }
