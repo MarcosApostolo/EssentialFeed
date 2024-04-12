@@ -8,7 +8,7 @@
 import Foundation
 import EssentialFeed
 
-class LoaderStub: FeedLoader {
+class FeedLoaderStub: FeedLoader {
     private let result: FeedLoader.Result
 
     init(result: FeedLoader.Result) {
