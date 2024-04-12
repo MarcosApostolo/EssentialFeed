@@ -52,4 +52,46 @@ private extension FeedViewController {
     func display(errorMessage: String) {
         errorView?.show(message: errorMessage)
     }
+    
+    func simulateAppearance() {
+        if !isViewLoaded {
+            loadViewIfNeeded()
+            prepareForFirstAppearance()
+        }
+
+        beginAppearanceTransition(true, animated: false)
+        endAppearanceTransition()
+    }
+    
+    func prepareForFirstAppearance() {
+        replaceRefreshControlForiOS17Support()
+    }
+    
+    func replaceRefreshControlForiOS17Support() {
+        let fake = UIRefreshControlTestDouble()
+        
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+                
+        refreshControl = fake
+    }
+}
+
+private class UIRefreshControlTestDouble: UIRefreshControl {
+    private var _isRefreshing = false
+    
+    override var isRefreshing: Bool {
+        return _isRefreshing
+    }
+    
+    override func beginRefreshing() {
+        _isRefreshing = true
+    }
+    
+    override func endRefreshing() {
+        _isRefreshing = false
+    }
 }
