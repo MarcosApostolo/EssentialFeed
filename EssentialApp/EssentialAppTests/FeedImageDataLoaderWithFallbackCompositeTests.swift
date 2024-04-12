@@ -32,22 +32,15 @@ class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
 
 final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
     func test_init_doesNotLoadImageData() {
-        let primaryLoader = LoaderSpy()
-        let fallbackLoader = LoaderSpy()
-        
-        let _ = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        let (_, primaryLoader, fallbackLoader) = makeSUT()
         
         XCTAssertTrue(primaryLoader.loadedImageURLs.isEmpty)
         XCTAssertTrue(fallbackLoader.loadedImageURLs.isEmpty)
     }
     
     func test_loadImageData_loadsFromPrimaryLoaderFirst() {
-        let primaryLoader = LoaderSpy()
-        let fallbackLoader = LoaderSpy()
-        
         let url = anyURL()
-        
-        let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        let (sut, primaryLoader, fallbackLoader) = makeSUT()
         
         let _ = sut.loadImageData(from: url) { _ in }
         
@@ -56,6 +49,22 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
     }
     
     // Helpers
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoader, primary: LoaderSpy, fallback: LoaderSpy) {
+        let primaryLoader = LoaderSpy()
+        let fallbackLoader = LoaderSpy()
+        let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        trackForMemoryLeaks(primaryLoader, file: file, line: line)
+        trackForMemoryLeaks(fallbackLoader, file: file, line: line)
+        trackForMemoryLeaks(sut, file: file, line: line)
+        return (sut, primaryLoader, fallbackLoader)
+    }
+
+    private func trackForMemoryLeaks(_ instance: AnyObject, file: StaticString = #file, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance should have been deallocated. Potential memory leak.", file: file, line: line)
+        }
+    }
+    
     class LoaderSpy: FeedImageDataLoader {
         private var messages = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
         
