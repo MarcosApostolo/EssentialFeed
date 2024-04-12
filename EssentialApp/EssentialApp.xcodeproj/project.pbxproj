@@ -118,6 +118,7 @@
 		4A103A802BC75A070068AF1E /* EssentialApp */ = {
 			isa = PBXGroup;
 			children = (
+				4A770A7B2BC95C9500684766 /* Feed Feature */,
 				4A103A812BC75A070068AF1E /* AppDelegate.swift */,
 				4A103A832BC75A070068AF1E /* SceneDelegate.swift */,
 				4A103A852BC75A070068AF1E /* ViewController.swift */,
@@ -151,6 +152,13 @@
 				4A770A792BC946D000684766 /* XCTestCase+FeedLoader.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		4A770A7B2BC95C9500684766 /* Feed Feature */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Feed Feature";
 			sourceTree = "<group>";
 		};
 		4A85AEB42BC75AA000E00E50 /* Frameworks */ = {
