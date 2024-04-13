@@ -34,6 +34,10 @@ public final class FeedViewController: UITableViewController, FeedLoadingView, F
         delegate?.didRequestFeedRefresh()
     }
     
+    public func display(_ cellControllers: [FeedImageCellController]) {
+        tableModel = cellControllers
+    }
+    
     public func display(_ viewModel: FeedLoadingViewModel) {
         refreshControl?.update(isLoading: viewModel.isLoading)
     }
