@@ -104,6 +104,7 @@
 		4AC5AABC2BC9EB9F00F73732 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 		4AC5AABD2BC9EB9F00F73732 /* FeedUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUIComposer.swift; sourceTree = "<group>"; };
 		4AC5AABE2BC9EB9F00F73732 /* FeedLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
+		4AE0C3F12BCC342C0079E1AA /* EssentialAppTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; name = EssentialAppTests.xctestplan; path = /Users/marcosamaral/code/EssentialFeedCaseStudy/EssentialApp/EssentialApp/EssentialAppTests.xctestplan; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +167,7 @@
 		4A103A972BC75A080068AF1E /* EssentialAppTests */ = {
 			isa = PBXGroup;
 			children = (
+				4AE0C3F12BCC342C0079E1AA /* EssentialAppTests.xctestplan */,
 				4A5E59612BC8BB9C007DA5D9 /* Helpers */,
 				4AC5AAB32BC9EA8F00F73732 /* FeedUIIntegrationTests.swift */,
 				4A770A992BC9A84C00684766 /* SceneDelegateTests.swift */,
