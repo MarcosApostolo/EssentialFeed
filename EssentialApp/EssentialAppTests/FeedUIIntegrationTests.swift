@@ -57,7 +57,7 @@ final class FeedUIIntegrationTests: XCTestCase {
         
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "Expected a loading indicator after the user initiates a load")
         
-        loader.completeFeedLoadingWithError(at: 1)
+        loader.completeFeedLoadingWithError(at: 2)
         
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "Expected no loading indicator after load fails")
     }
@@ -379,7 +379,7 @@ final class FeedUIIntegrationTests: XCTestCase {
     // MARK: Helpers
     func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (FeedViewController, LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = FeedUIComposer.feedComposeWith(feedLoader: loader, imageLoader: loader)
+        let sut = FeedUIComposer.feedComposeWith(feedLoader: loader.loadPublisher, imageLoader: loader)
         
         trackForMemoryLeaks(loader, file: file, line: line)
         trackForMemoryLeaks(sut, file: file, line: line)
