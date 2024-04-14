@@ -91,10 +91,19 @@ final class LoadCommentsFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsOn2xxHTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
         
-        let item1 = makeItems(id: UUID(), imageURL: URL(string: "https://some-url")!)
+        let item1 = makeItem(
+            id: UUID(),
+            message: "a message",
+            createdAt: (Date(timeIntervalSince1970: 1598627222), "2020-08-28T15:07:02+00:00"),
+            username: "a username"
+        )
         
         
-        let item2 = makeItems(id: UUID(), description: "some descrption", location: "some location", imageURL: URL(string: "https://another-url")!)
+        let item2 = makeItem(
+            id: UUID(),
+            message: "another message",
+            createdAt: (Date(timeIntervalSince1970: 1577881882), "2020-01-01T12:31:22+00:00"),
+            username: "another username")
         
         let samples = [200, 201, 250, 280, 299]
         
@@ -142,18 +151,20 @@ final class LoadCommentsFromRemoteUseCaseTests: XCTestCase {
         return try! JSONSerialization.data(withJSONObject: json)
     }
     
-    private func makeItems(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]) {
+    private func makeItem(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String: Any]) {
         
-        let feedItem = FeedImage(id: id, description: description, location: location, url: imageURL)
+        let imageComment = ImageComment(id: id, message: message, createdAt: createdAt.date, username: username)
         
-        let json = [
-            "id": feedItem.id.uuidString,
-            "description": feedItem.description,
-            "location": feedItem.location,
-            "image": feedItem.url.absoluteString
-        ].compactMapValues({ $0 })
+        let json: [String: Any] = [
+            "id": id.uuidString,
+            "message": message,
+            "created_at": createdAt.iso8601String,
+            "author": [
+                "username": username
+            ]
+        ]
         
-        return (feedItem, json)
+        return (imageComment, json)
     }
     
     private func failure(_ error: RemoteImageCommentsLoader.Error) -> RemoteImageCommentsLoader.Result {
