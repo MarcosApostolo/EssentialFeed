@@ -10,13 +10,13 @@ import EssentialFeed
 
 final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
 
-    func test_should_init() {
+    func test_init_doesNotRequestDataFromURL() {
         let (_, client) = makeSUT()
         
         XCTAssertTrue(client.requestedURLs.isEmpty)
     }
 
-    func test_shouldRequestDataWithCorrectURL() {
+    func test_load_requestsDataFromURL() {
         let url = URL(string: "https://some-url")!
         
         let (sut, client) = makeSUT(url: url)
@@ -28,7 +28,17 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         XCTAssertEqual(client.requestedURLs, [url])
     }
     
-    func test_shouldReturnError() {
+    func test_loadTwice_requestsDataFromURLTwice() {
+        let url = URL(string: "https://a-given-url.com")!
+        let (sut, client) = makeSUT(url: url)
+        
+        sut.load { _ in }
+        sut.load { _ in }
+        
+        XCTAssertEqual(client.requestedURLs, [url, url])
+    }
+    
+    func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWithResult: .failure(RemoteFeedLoader.Error.connectivity), when: {
@@ -38,7 +48,7 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         })
     }
     
-    func test_shouldReturnInvalidDataResponse() {
+    func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
         
         let samples = [199, 201, 400, 300, 500]
@@ -52,7 +62,7 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         }
     }
     
-    func test_shouldReturnInvalidDataWhenJSONIsInvalid() {
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWithResult: failure(.invalidData), when: {
@@ -62,7 +72,7 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         })
     }
     
-    func test_shouldDeliverEmptyDataWhenJSONIsEmpty() {
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
         let (sut, client) = makeSUT()
         
         expect(sut, toCompleteWithResult: .success([]), when: {
@@ -71,7 +81,7 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         })
     }
     
-    func test_shouldReturnFeedItemsWhenJSONHasData() {
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let (sut, client) = makeSUT()
         
         let item1 = makeItems(id: UUID(), imageURL: URL(string: "https://some-url")!)
@@ -86,7 +96,7 @@ final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
         }
     }
     
-    func test_shouldNotCallCompletionAfterDeallocation() {
+    func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
         let url = URL(string: "https://some-url")!
         let client = HTTPClientSpy()
         var sut: RemoteFeedLoader? = RemoteFeedLoader(client: client, url: url)
