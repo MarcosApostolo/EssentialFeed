@@ -6,7 +6,6 @@
 //
 
 import XCTest
-
 import EssentialFeed
 
 final class LoadFeedFromRemoteUseCaseTests: XCTestCase {
