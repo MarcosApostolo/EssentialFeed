@@ -12,7 +12,7 @@ public protocol FeedViewControllerDelegate {
     func didRequestFeedRefresh()
 }
 
-public final class FeedViewController: UITableViewController, FeedLoadingView, FeedErrorView {
+public final class FeedViewController: UITableViewController, ResourceLoadingView, FeedErrorView {
     private var loadingControllers = [IndexPath: FeedImageCellController]()
     
     public var tableModel = [FeedImageCellController]() {

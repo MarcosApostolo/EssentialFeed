@@ -73,7 +73,7 @@ class FeedPresenterTests: XCTestCase {
         return value
     }
 
-    private class ViewSpy: FeedView, FeedLoadingView, FeedErrorView {
+    private class ViewSpy: FeedView, ResourceLoadingView, FeedErrorView {
         enum Message: Hashable {
             case display(errorMessage: String?)
             case display(isLoading: Bool)
