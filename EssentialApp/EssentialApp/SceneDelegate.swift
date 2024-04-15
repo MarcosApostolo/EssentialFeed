@@ -28,12 +28,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var localFeedLoader: LocalFeedLoader = {
         LocalFeedLoader(store: store, currentDate: Date.init)
     }()
-    
-    private lazy var remoteFeedLoader: RemoteLoader = {
-        let remoteURL = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
-        
-        return RemoteLoader(client: httpClient, url: remoteURL, mapper: FeedItemMapper.map)
-    }()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -64,8 +58,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func makeRemoteFeedLoaderWithLocalFallback() -> RemoteFeedLoader.Publisher {
-        return remoteFeedLoader
-            .loadPublisher()
+        let remoteURL = URL(string: "https://static1.squarespace.com/static/5891c5b8d1758ec68ef5dbc2/t/5db4155a4fbade21d17ecd28/1572083034355/essential_app_feed.json")!
+        
+        return httpClient
+            .getPublisher(url: remoteURL)
+            .tryMap(FeedItemMapper.map)
             .caching(to: localFeedLoader)
             .fallback(to: localFeedLoader.loadPublisher)
     }
@@ -113,3 +110,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
 extension RemoteFeedLoader: FeedLoader where Resource == [FeedImage] {}
 
+public typealias RemoteFeedLoader = RemoteLoader<[FeedImage]>
+
+public extension RemoteFeedLoader {
+    convenience init(url: URL, client: HTTPClient) {
+        self.init(client: client, url: url, mapper: FeedItemMapper.map)
+    }
+}
