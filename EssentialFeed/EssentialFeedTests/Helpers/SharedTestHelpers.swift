@@ -53,3 +53,15 @@ extension Date {
         return self + seconds
     }
 }
+
+func makeItemsJson(with jsonItems: [[String: Any]]) -> Data {
+    let json = ["items": jsonItems]
+    
+    return try! JSONSerialization.data(withJSONObject: json)
+}
+
+extension HTTPURLResponse {
+    convenience init(statusCode: Int) {
+        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
+    }
+}
