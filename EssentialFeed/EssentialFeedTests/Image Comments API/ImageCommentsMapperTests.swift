@@ -86,26 +86,4 @@ final class ImageCommentsMapperTests: XCTestCase {
         
         return (imageComment, json)
     }
-    
-    private func expect(_ sut: RemoteImageCommentsLoader, toCompleteWithResult expectedResult: RemoteImageCommentsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        
-        let exp = expectation(description: "Wait for load to complete")
-                
-        sut.load(completion: { receivedResult in
-            switch(expectedResult, receivedResult) {
-            case let (.success(expecedItems), .success(receivedItems)):
-                XCTAssertEqual(expecedItems, receivedItems, file: file, line: line)
-            case let (.failure(expectedError as RemoteImageCommentsLoader.Error), .failure(receivedError as RemoteImageCommentsLoader.Error)):
-                XCTAssertEqual(expectedError, receivedError, file: file, line: line)
-            default:
-                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
-            }
-            
-            exp.fulfill()
-        })
-        
-        action()
-        
-        wait(for: [exp], timeout: 1.0)
-    }
 }
