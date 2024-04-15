@@ -37,17 +37,17 @@ public final class LoadResourcePresenter<Resource, View: ResourceView> {
     
     public func didStartLoading() {
         errorView.display(.noError)
-        loadingView.display(FeedLoadingViewModel(isLoading: true))
+        loadingView.display(ResourceLoadingViewModel(isLoading: true))
     }
     
     public func didFinishLoading(with resource: Resource) {
         resourceView.display(mapper(resource))
-        loadingView.display(FeedLoadingViewModel(isLoading: false))
+        loadingView.display(ResourceLoadingViewModel(isLoading: false))
     }
     
     public func didFinishLoadingFeed(with error: Error) {
         errorView.display(.error(message: Self.loadError))
-        loadingView.display(FeedLoadingViewModel(isLoading: false))
+        loadingView.display(ResourceLoadingViewModel(isLoading: false))
     }
 }
 
