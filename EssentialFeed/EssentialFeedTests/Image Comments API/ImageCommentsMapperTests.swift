@@ -45,7 +45,7 @@ final class ImageCommentsMapperTests: XCTestCase {
         }
     }
     
-    func test_map_deliversItemsOn2xxHTTPResponseWithJSONItems() throws {        
+    func test_map_deliversItemsOn2xxHTTPResponseWithJSONItems() throws {
         let item1 = makeItem(
             id: UUID(),
             message: "a message",
@@ -85,11 +85,6 @@ final class ImageCommentsMapperTests: XCTestCase {
         ]
         
         return (imageComment, json)
-    }
-    
-    private func failure(_ error: RemoteImageCommentsLoader.Error) -> RemoteImageCommentsLoader.Result {
-        
-        return .failure(error)
     }
     
     private func expect(_ sut: RemoteImageCommentsLoader, toCompleteWithResult expectedResult: RemoteImageCommentsLoader.Result, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
