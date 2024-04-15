@@ -27,28 +27,11 @@ class FeedImageDataMapperTests: XCTestCase {
         )
     }
     
-    func test_map_deliversReceivedNonEmptyDataOn200HTTPResponse() throws {        
+    func test_map_deliversReceivedNonEmptyDataOn200HTTPResponse() throws {
         let nonEmptyData = Data("non-empty".utf8)
         
         let result = try FeedImageDataMapper.map(nonEmptyData, from: HTTPURLResponse(statusCode: 200))
 
         XCTAssertEqual(result, nonEmptyData)
-    }
-    
-    func test_loadImageDataFromURL_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
-        let client = HTTPClientSpy()
-        var sut: RemoteFeedImageDataLoader? = RemoteFeedImageDataLoader(client: client)
-        
-        var capturedResults = [FeedImageDataLoader.Result]()
-        
-        XCTAssertTrue(capturedResults.isEmpty)
-        
-        let _ = sut?.loadImageData(from: anyURL()) { capturedResults.append($0)}
-        
-        sut = nil
-        
-        client.complete(withStatusCode: 200, data: anyData())
-        
-        XCTAssertTrue(capturedResults.isEmpty)
     }
 }
