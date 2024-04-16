@@ -53,6 +53,6 @@ class ImageCommentsSnapshotTests: XCTestCase {
                     username: "a."
                 )
             ),
-        ]
+        ].map{ CellController($0) }
     }
 }

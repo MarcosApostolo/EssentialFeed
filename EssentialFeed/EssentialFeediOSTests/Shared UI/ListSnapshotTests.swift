@@ -40,7 +40,7 @@ class ListSnapshotTests: XCTestCase {
         return controller
     }
 
-    private func emptyFeed() -> [FeedImageCellController] {
+    private func emptyFeed() -> [CellController] {
         []
     }
 }
@@ -50,7 +50,7 @@ private extension ListViewController {
         errorView?.show(message: errorMessage)
     }
     
-    func display(_ model: [FeedImageCellController]) {
+    func display(_ model: [CellController]) {
         tableModel = model
     }
 }
