@@ -18,7 +18,7 @@ public protocol CellController {
     func preload()
 }
 
-public final class FeedViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
+public final class ListViewController: UITableViewController, ResourceLoadingView, ResourceErrorView {
     private var loadingControllers = [IndexPath: CellController]()
     
     public var tableModel = [CellController]() {
@@ -61,7 +61,7 @@ public final class FeedViewController: UITableViewController, ResourceLoadingVie
     }
 }
 
-extension FeedViewController {
+extension ListViewController {
     public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return tableModel.count
     }
@@ -90,7 +90,7 @@ extension FeedViewController {
     }
 }
 
-extension FeedViewController: UITableViewDataSourcePrefetching {
+extension ListViewController: UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         indexPaths.forEach { indexPath in
             let cellController = cellController(forRowAt: indexPath)

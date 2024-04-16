@@ -377,7 +377,7 @@ final class FeedUIIntegrationTests: XCTestCase {
     }
     
     // MARK: Helpers
-    func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (FeedViewController, LoaderSpy) {
+    func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (ListViewController, LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedUIComposer.feedComposeWith(
             feedLoader: loader.loadPublisher,

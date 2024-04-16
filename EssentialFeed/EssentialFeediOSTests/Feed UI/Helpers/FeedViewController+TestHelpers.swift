@@ -7,7 +7,7 @@
 import UIKit
 import EssentialFeediOS
 
-extension FeedViewController {
+extension ListViewController {
     var isShowingLoadingIndicator: Bool? {
         return refreshControl?.isRefreshing
     }
@@ -41,7 +41,7 @@ extension FeedViewController {
     }
 }
 
-extension FeedViewController {
+extension ListViewController {
     @discardableResult
     func simulateFeedImageViewVisible(at index: Int) -> FeedImageCell? {
         return feedImageView(at: index) as? FeedImageCell
