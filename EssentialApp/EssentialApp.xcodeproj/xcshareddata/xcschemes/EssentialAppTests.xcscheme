@@ -13,7 +13,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:EssentialApp/EssentialAppTests.xctestplan"
+            reference = "container:EssentialApp.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
