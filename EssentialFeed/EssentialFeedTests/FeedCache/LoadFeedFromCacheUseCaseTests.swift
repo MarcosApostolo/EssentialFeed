@@ -45,7 +45,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
 
         let fixedCurrentDate = Date()
         
-        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: 1)
+        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -77,7 +77,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_shouldDeliverEmptyImagesWhenCacheIsMoreThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let moreThanExpiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: -1)
+        let moreThanExpiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -115,7 +115,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_shouldHaveNoSideEffectsWhenCacheIsLessThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: 1)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -151,7 +151,7 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
     func test_shouldNotHaveSideEffectsWhenCacheIsMoreThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: -1)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate

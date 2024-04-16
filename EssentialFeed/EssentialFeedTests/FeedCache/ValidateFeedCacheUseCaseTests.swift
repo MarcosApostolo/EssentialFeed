@@ -40,7 +40,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_shouldNotDeleteCacheWhenCacheIsLessThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: 1)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -76,7 +76,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_shouldDeleteCacheWhenCacheIsMoreThanExpiredCacheTimestamp() {
         let fixedCurrentDate = Date()
         
-        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: -1)
+        let expiredCacheTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         
         let (sut, store) = makeSUT(currentDate: {
             fixedCurrentDate
@@ -133,7 +133,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_validateCache_succeedsOnNonExpiredCache() {
         let feed = uniqueImages()
         let fixedCurrentDate = Date()
-        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: 1)
+        let nonExpiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: 1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
 
         expect(sut, toCompleteWith: .success(()), when: {
@@ -144,7 +144,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_validateCache_failsOnDeletionErrorOfExpiredCache() {
         let feed = uniqueImages()
         let fixedCurrentDate = Date()
-        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: -1)
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
         let deletionError = anyNSError()
 
@@ -157,7 +157,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
     func test_validateCache_succeedsOnSuccessfulDeletionOfExpiredCache() {
         let feed = uniqueImages()
         let fixedCurrentDate = Date()
-        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().add(seconds: -1)
+        let expiredTimestamp = fixedCurrentDate.minusFeedCacheMaxAge().adding(seconds: -1)
         let (sut, store) = makeSUT(currentDate: { fixedCurrentDate })
 
         expect(sut, toCompleteWith: .success(()), when: {
