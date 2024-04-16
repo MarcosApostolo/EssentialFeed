@@ -10,11 +10,13 @@ import Combine
 import EssentialFeed
 import EssentialFeediOS
 
+private typealias FeedPresentationAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>
+
 public final class FeedUIComposer {
     private init () {}
     
     public static func feedComposeWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> FeedViewController {
-        let feedPresenterAdapter = LoadResourcePresentationAdapter<[FeedImage], FeedViewAdapter>(loader: feedLoader)
+        let feedPresenterAdapter = FeedPresentationAdapter(loader: feedLoader)
         
         let feedController = FeedViewController.makeWith(
             delegate: feedPresenterAdapter,
