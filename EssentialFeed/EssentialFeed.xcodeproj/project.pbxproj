@@ -41,6 +41,11 @@
 		4A242D0A2BCDDF3000DD71F8 /* ResourceErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A242D092BCDDF3000DD71F8 /* ResourceErrorView.swift */; };
 		4A25C3BC2B8EA8ED001392E9 /* UITableView+CellDequeueing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A25C3BB2B8EA8ED001392E9 /* UITableView+CellDequeueing.swift */; };
 		4A25C3BE2B8EAA69001392E9 /* UIImageView+Animations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A25C3BD2B8EAA69001392E9 /* UIImageView+Animations.swift */; };
+		4A41EBDF2BCE98D70067F733 /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A41EBDE2BCE98D70067F733 /* UIImage+TestHelpers.swift */; };
+		4A41EBE12BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A41EBE02BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png */; };
+		4A41EBE32BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A41EBE22BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png */; };
+		4A41EBE62BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A41EBE42BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png */; };
+		4A41EBE72BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A41EBE52BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png */; };
 		4A4CB0062B8C996300C6FDF0 /* Feed.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4A4CB0052B8C996300C6FDF0 /* Feed.xcassets */; };
 		4A4CB0072B8C9D5600C6FDF0 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A561C462B1FDD330033688D /* EssentialFeed.framework */; platformFilter = ios; };
 		4A4CB0082B8C9D5600C6FDF0 /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4A561C462B1FDD330033688D /* EssentialFeed.framework */; platformFilter = ios; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -191,6 +196,11 @@
 		4A25C3BB2B8EA8ED001392E9 /* UITableView+CellDequeueing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+CellDequeueing.swift"; sourceTree = "<group>"; };
 		4A25C3BD2B8EAA69001392E9 /* UIImageView+Animations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Animations.swift"; sourceTree = "<group>"; };
 		4A25C3C42B8EB21B001392E9 /* FeedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLocalizationTests.swift; sourceTree = "<group>"; };
+		4A41EBDE2BCE98D70067F733 /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
+		4A41EBE02BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_CONTENT_dark.png; sourceTree = "<group>"; };
+		4A41EBE22BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_CONTENT_light.png; sourceTree = "<group>"; };
+		4A41EBE42BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_FAILED_IMAGE_LOADING_dark.png; sourceTree = "<group>"; };
+		4A41EBE52BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_FAILED_IMAGE_LOADING_light.png; sourceTree = "<group>"; };
 		4A4CB0052B8C996300C6FDF0 /* Feed.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Feed.xcassets; sourceTree = "<group>"; };
 		4A4CB00C2B8CA44000C6FDF0 /* Feed.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Feed.storyboard; sourceTree = "<group>"; };
 		4A561C462B1FDD330033688D /* EssentialFeed.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialFeed.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -647,6 +657,7 @@
 			children = (
 				4AF181392B913241004D6E0C /* XCTestCase+SnapshotTests.swift */,
 				4AF1813B2B91329C004D6E0C /* UIViewController+Snapshots.swift */,
+				4A41EBDE2BCE98D70067F733 /* UIImage+TestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -654,6 +665,10 @@
 		4AF1813D2B9133E8004D6E0C /* snapshots */ = {
 			isa = PBXGroup;
 			children = (
+				4A41EBE42BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png */,
+				4A41EBE52BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png */,
+				4A41EBE22BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png */,
+				4A41EBE02BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png */,
 				4AF1813E2B9134A4004D6E0C /* EMPTY_FEED_dark.png */,
 				4AF1813F2B9134A4004D6E0C /* EMPTY_FEED_light.png */,
 				4AF181422B9135C2004D6E0C /* FEED_WITH_ERROR_dark.png */,
@@ -927,10 +942,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A41EBE62BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png in Resources */,
 				4AF181442B9135C2004D6E0C /* FEED_WITH_ERROR_dark.png in Resources */,
 				4AF181412B9134A5004D6E0C /* EMPTY_FEED_light.png in Resources */,
 				4AF181402B9134A5004D6E0C /* EMPTY_FEED_dark.png in Resources */,
+				4A41EBE72BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png in Resources */,
 				4AF181452B9135C2004D6E0C /* FEED_WITH_ERROR_light.png in Resources */,
+				4A41EBE32BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png in Resources */,
+				4A41EBE12BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1050,6 +1069,7 @@
 				4AF777892B90990100E1ADF0 /* FeedUISnapshotTests.swift in Sources */,
 				4A8CBF302B35D8E50071FD17 /* XCTTestCase+MemoryCheck.swift in Sources */,
 				4AF1813C2B91329C004D6E0C /* UIViewController+Snapshots.swift in Sources */,
+				4A41EBDF2BCE98D70067F733 /* UIImage+TestHelpers.swift in Sources */,
 				4AF1813A2B913241004D6E0C /* XCTestCase+SnapshotTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
