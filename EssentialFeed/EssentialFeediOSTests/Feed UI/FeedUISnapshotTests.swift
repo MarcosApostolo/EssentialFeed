@@ -9,15 +9,6 @@ import XCTest
 @testable import EssentialFeediOS
 
 class FeedUISnapshotTests: XCTestCase {
-    func test_emptyFeed() {
-        let sut = makeSUT()
-
-        sut.display(emptyFeed())
-
-        assert(snapshot: sut.snapshot(for: .iPhone(style: .light)), named: "EMPTY_FEED_light")
-        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "EMPTY_FEED_dark")
-    }
-    
     func test_feedWithContent() {
         let sut = makeSUT()
         
@@ -27,15 +18,6 @@ class FeedUISnapshotTests: XCTestCase {
         assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_CONTENT_dark")
     }
 
-    func test_feedWithError() {
-        let sut = makeSUT()
-
-        sut.display(errorMessage: "An error message")
-
-        assert(snapshot: sut.snapshot(for: .iPhone(style: .light)), named: "FEED_WITH_ERROR_light")
-        assert(snapshot: sut.snapshot(for: .iPhone(style: .dark)), named: "FEED_WITH_ERROR_dark")
-    }
-    
     func test_feedWithFailedImageLoading() {
         let sut = makeSUT()
 
@@ -57,10 +39,6 @@ class FeedUISnapshotTests: XCTestCase {
         return controller
     }
 
-    private func emptyFeed() -> [FeedImageCellController] {
-        []
-    }
-    
     private func feedWithContent() -> [ImageStub] {
         return [
             ImageStub(
