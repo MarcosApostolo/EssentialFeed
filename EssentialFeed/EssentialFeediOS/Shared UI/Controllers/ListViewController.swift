@@ -25,6 +25,12 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
     
     @IBOutlet private(set) public var errorView: ErrorView?
     
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        tableView.sizeTableHeaderToFit()
+    }
+    
     public override func viewDidLoad() {
         refresh()
     }
