@@ -15,7 +15,11 @@ private typealias FeedPresentationAdapter = LoadResourcePresentationAdapter<[Fee
 public final class FeedUIComposer {
     private init () {}
     
-    public static func feedComposeWith(feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) -> ListViewController {
+    public static func feedComposeWith(
+        feedLoader: @escaping () -> AnyPublisher<[FeedImage], Error>,
+        imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher,
+        selection: @escaping (FeedImage) -> Void = { _ in }
+    ) -> ListViewController {
         let feedPresenterAdapter = FeedPresentationAdapter(loader: feedLoader)
         
         let feedController = ListViewController.makeFeedViewController(title: FeedPresenter.title)
@@ -25,7 +29,9 @@ public final class FeedUIComposer {
         feedPresenterAdapter.presenter = LoadResourcePresenter(
             resourceView: FeedViewAdapter(
                 controller: feedController,
-                imageLoader: imageLoader),
+                imageLoader: imageLoader,
+                selection: selection
+            ),
             loadingView: WeakRefVirtualProxy(
                 feedController),
             errorView: WeakRefVirtualProxy(feedController),
