@@ -49,8 +49,4 @@ private extension ListViewController {
     func display(errorMessage: String) {
         errorView.message = errorMessage
     }
-    
-    func display(_ model: [CellController]) {
-        tableModel = model
-    }
 }

@@ -21,7 +21,7 @@ extension ListViewController {
     }
     
     func numberOfRenderedFeedImageViews() -> Int {
-        return tableView.numberOfRows(inSection: feedImageSection)
+        tableView.numberOfSections == 0 ? 0 : tableView.numberOfRows(inSection: feedImagesSection)
     }
     
     func feedImageView(at row: Int) -> UITableViewCell? {
@@ -36,8 +36,23 @@ extension ListViewController {
         return ds?.tableView(tableView, cellForRowAt: index)
     }
     
+    @discardableResult
+    func simulateFeedImageBecomingVisibleAgain(at row: Int) -> FeedImageCell? {
+        let view = simulateFeedImageViewNotVisible(at: row)
+
+        let delegate = tableView.delegate
+        let index = IndexPath(row: row, section: feedImagesSection)
+        delegate?.tableView?(tableView, willDisplay: view!, forRowAt: index)
+
+        return view
+    }
+    
     func simulateErrorViewTap() {
         errorView.simulateTap()
+    }
+    
+    private var feedImagesSection: Int {
+        return 0
     }
 }
 
