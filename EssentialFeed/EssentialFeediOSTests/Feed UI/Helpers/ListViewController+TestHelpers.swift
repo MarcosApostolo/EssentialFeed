@@ -8,7 +8,7 @@ import UIKit
 import EssentialFeediOS
 
 extension ListViewController {
-    var isShowingLoadingIndicator: Bool? {
+    var isShowingLoadingIndicator: Bool {
         return refreshControl?.isRefreshing == true
     }
     
