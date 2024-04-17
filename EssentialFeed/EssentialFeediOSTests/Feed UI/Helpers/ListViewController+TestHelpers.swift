@@ -9,7 +9,7 @@ import EssentialFeediOS
 
 extension ListViewController {
     var isShowingLoadingIndicator: Bool? {
-        return refreshControl?.isRefreshing
+        return refreshControl?.isRefreshing == true
     }
     
     private var feedImageSection: Int {
