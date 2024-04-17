@@ -47,7 +47,7 @@ class ListSnapshotTests: XCTestCase {
 
 private extension ListViewController {
     func display(errorMessage: String) {
-        errorView?.show(message: errorMessage)
+        errorView.message = errorMessage
     }
     
     func display(_ model: [CellController]) {

@@ -17,7 +17,7 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         }
     }
     
-    @IBOutlet private(set) public var errorView: ErrorView?
+    private(set) public var errorView = ErrorView()
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -26,7 +26,18 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
     }
     
     public override func viewDidLoad() {
+        configureErrorView()
         refresh()
+    }
+    
+    private func configureErrorView() {
+        tableView.tableHeaderView = errorView.makeContainer()
+
+        errorView.onHide = { [weak self] in
+            self?.tableView.beginUpdates()
+            self?.tableView.sizeTableHeaderToFit()
+            self?.tableView.endUpdates()
+        }
     }
     
     public var onRefresh: (() -> Void)?
@@ -49,11 +60,7 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
     }
     
     public func display(_ viewModel: ResourceErrorViewModel) {
-        if let errorMessage = viewModel.message {
-            errorView?.show(message: errorMessage)
-        } else {
-            errorView?.hideMessage()
-        }
+        errorView.message = viewModel.message
     }
 }
 

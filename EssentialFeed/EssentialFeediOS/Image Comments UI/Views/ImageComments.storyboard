@@ -15,35 +15,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <view key="tableHeaderView" contentMode="scaleToFill" id="clu-9B-M8g" customClass="ErrorView" customModule="EssentialFeediOS" customModuleProvider="target">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="34"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q3Z-Ju-1KI">
-                                    <rect key="frame" x="0.0" y="8" width="414" height="18"/>
-                                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <state key="normal" title="Button"/>
-                                    <buttonConfiguration key="configuration" style="plain" title="Button"/>
-                                </button>
-                            </subviews>
-                            <color key="backgroundColor" red="0.99951404330000004" green="0.41759261489999999" blue="0.4154433012" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstAttribute="bottom" secondItem="q3Z-Ju-1KI" secondAttribute="bottom" constant="8" id="Jgq-uT-GTs"/>
-                                <constraint firstAttribute="trailing" secondItem="q3Z-Ju-1KI" secondAttribute="trailing" id="g7c-K4-eE1"/>
-                                <constraint firstItem="q3Z-Ju-1KI" firstAttribute="leading" secondItem="clu-9B-M8g" secondAttribute="leading" id="hDG-ax-wnA"/>
-                                <constraint firstItem="q3Z-Ju-1KI" firstAttribute="top" secondItem="clu-9B-M8g" secondAttribute="top" constant="8" id="n3z-Za-KW1"/>
-                            </constraints>
-                            <connections>
-                                <outlet property="button" destination="q3Z-Ju-1KI" id="xuS-7S-5hQ"/>
-                            </connections>
-                        </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="pGT-Qn-vv2">
-                            <rect key="frame" x="0.0" y="237" width="414" height="16"/>
+                            <rect key="frame" x="0.0" y="203" width="414" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="ImageCommentCell" rowHeight="125" id="4Aa-lg-gTp" customClass="ImageCommentCell" customModule="EssentialFeediOS" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="84" width="414" height="125"/>
+                                <rect key="frame" x="0.0" y="50" width="414" height="125"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="4Aa-lg-gTp" id="ZOf-kB-Mm6">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="125"/>
