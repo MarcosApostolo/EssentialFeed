@@ -35,14 +35,6 @@ public extension LocalFeedLoader {
     }
 }
 
-extension Publisher where Output == [FeedImage] {
-    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> {
-        handleEvents(receiveOutput: { feed in
-            cache.saveIgnoringResult(feed: feed)
-        }).eraseToAnyPublisher()
-    }
-}
-
 extension Publisher {
     func fallback(to fallbackPublisher: @escaping () -> AnyPublisher<Output, Failure>) -> AnyPublisher<Output, Failure> {
         self.catch { _ in fallbackPublisher()}.eraseToAnyPublisher()
@@ -107,6 +99,10 @@ extension FeedCache {
     func saveIgnoringResult(feed: [FeedImage]) {
         save(feed: feed) { _ in }
     }
+    
+    func saveIgnoringResult(_ page: Paginated<FeedImage>) {
+        saveIgnoringResult(feed: page.items)
+    }
 }
 
 public extension FeedImageDataLoader {
@@ -125,10 +121,20 @@ public extension FeedImageDataLoader {
     }
 }
 
+extension Publisher {
+    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> where Output == [FeedImage] {
+        handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+    
+    func caching(to cache: FeedCache) -> AnyPublisher<Output, Failure> where Output == Paginated<FeedImage> {
+        handleEvents(receiveOutput: cache.saveIgnoringResult).eraseToAnyPublisher()
+    }
+}
+
 extension Publisher where Output == Data {
     func caching(to cache: FeedImageDataCache, using url: URL) -> AnyPublisher<Output, Failure> {
-        return handleEvents(receiveOutput: { imageData in
-            cache.saveIgnoringResults(imageData, for: url)
+        handleEvents(receiveOutput: { data in
+            cache.saveIgnoringResults(data, for: url)
         }).eraseToAnyPublisher()
     }
 }
@@ -164,3 +170,4 @@ public extension Paginated {
         }
     }
 }
+
