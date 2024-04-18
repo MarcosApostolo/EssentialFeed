@@ -38,6 +38,13 @@ public class CoreDataFeedStore: FeedStore {
         context.perform { action(context) }
     }
     
+    func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
+        let context = self.context
+        var result: Result<R, Error>!
+        context.performAndWait { result = action(context) }
+        return try result.get()
+    }
+    
     public func deleteCachedFeed(completion: @escaping FeedStore.DeletionCompletion) {
         performAsync { context in
             completion(Result(catching: {
