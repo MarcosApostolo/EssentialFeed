@@ -22,6 +22,10 @@
 		4A11BC782B31343000396625 /* CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC772B31343000396625 /* CoreDataHelpers.swift */; };
 		4A11BC7B2B3134A900396625 /* ManagedFeedImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC7A2B3134A900396625 /* ManagedFeedImage.swift */; };
 		4A11BC7D2B3134C100396625 /* ManagedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A11BC7C2B3134C100396625 /* ManagedCache.swift */; };
+		4A1986A12BD12D8A00BBADEB /* LoadMoreCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1986A02BD12D8A00BBADEB /* LoadMoreCellController.swift */; };
+		4A1986A32BD12D9800BBADEB /* LoadMoreCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1986A22BD12D9800BBADEB /* LoadMoreCell.swift */; };
+		4A1986A62BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_light.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A1986A42BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_light.png */; };
+		4A1986A72BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A1986A52BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_dark.png */; };
 		4A1D12B12B97205300A7F4F2 /* FeedImageDataStoreSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D12B02B97205300A7F4F2 /* FeedImageDataStoreSpy.swift */; };
 		4A1D12B32B97236300A7F4F2 /* CacheFeedImageDataUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D12B22B97236300A7F4F2 /* CacheFeedImageDataUseCaseTests.swift */; };
 		4A1D12B52B9728DE00A7F4F2 /* CoreDataFeedImageDataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4A1D12B42B9728DE00A7F4F2 /* CoreDataFeedImageDataStoreTests.swift */; };
@@ -197,6 +201,10 @@
 		4A11BC772B31343000396625 /* CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHelpers.swift; sourceTree = "<group>"; };
 		4A11BC7A2B3134A900396625 /* ManagedFeedImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedFeedImage.swift; sourceTree = "<group>"; };
 		4A11BC7C2B3134C100396625 /* ManagedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedCache.swift; sourceTree = "<group>"; };
+		4A1986A02BD12D8A00BBADEB /* LoadMoreCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCellController.swift; sourceTree = "<group>"; };
+		4A1986A22BD12D9800BBADEB /* LoadMoreCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadMoreCell.swift; sourceTree = "<group>"; };
+		4A1986A42BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_LOAD_MORE_INDICATOR_light.png; sourceTree = "<group>"; };
+		4A1986A52BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = FEED_WITH_LOAD_MORE_INDICATOR_dark.png; sourceTree = "<group>"; };
 		4A1D12B02B97205300A7F4F2 /* FeedImageDataStoreSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataStoreSpy.swift; sourceTree = "<group>"; };
 		4A1D12B22B97236300A7F4F2 /* CacheFeedImageDataUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedImageDataUseCaseTests.swift; sourceTree = "<group>"; };
 		4A1D12B42B9728DE00A7F4F2 /* CoreDataFeedImageDataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFeedImageDataStoreTests.swift; sourceTree = "<group>"; };
@@ -367,6 +375,7 @@
 			isa = PBXGroup;
 			children = (
 				4A04543C2B3CAA6F0025A77A /* FeedImageCellController.swift */,
+				4A1986A02BD12D8A00BBADEB /* LoadMoreCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -379,6 +388,7 @@
 				4A0035312B3B55140042D3A9 /* UIView+Shimmering.swift */,
 				4A4CB0052B8C996300C6FDF0 /* Feed.xcassets */,
 				4A4CB00C2B8CA44000C6FDF0 /* Feed.storyboard */,
+				4A1986A22BD12D9800BBADEB /* LoadMoreCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -843,6 +853,8 @@
 				4A41EBE22BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png */,
 				4A41EBE02BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png */,
 				4A41EC182BCF553F0067F733 /* FEED_WITH_CONTENT_light_extraExtraExtraLarge.png */,
+				4A1986A52BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_dark.png */,
+				4A1986A42BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_light.png */,
 			);
 			path = snapshots;
 			sourceTree = "<group>";
@@ -1109,12 +1121,14 @@
 				4A41EBE62BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_dark.png in Resources */,
 				4AF181442B9135C2004D6E0C /* FEED_WITH_ERROR_dark.png in Resources */,
 				4A41EC172BCF552E0067F733 /* LIST_WITH_ERROR_MESSAGE_light_extraExtraExtraLarge.png in Resources */,
+				4A1986A62BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_light.png in Resources */,
 				4AF181412B9134A5004D6E0C /* EMPTY_FEED_light.png in Resources */,
 				4AF181402B9134A5004D6E0C /* EMPTY_FEED_dark.png in Resources */,
 				4A41EBE72BCE9A170067F733 /* FEED_WITH_FAILED_IMAGE_LOADING_light.png in Resources */,
 				4AF181452B9135C2004D6E0C /* FEED_WITH_ERROR_light.png in Resources */,
 				4A41EBE32BCE99CC0067F733 /* FEED_WITH_CONTENT_light.png in Resources */,
 				4A41EC1B2BCF563A0067F733 /* IMAGE_COMMENTS_light_extraExtraExtraLarge.png in Resources */,
+				4A1986A72BD12E4F00BBADEB /* FEED_WITH_LOAD_MORE_INDICATOR_dark.png in Resources */,
 				4A41EBE12BCE999E0067F733 /* FEED_WITH_CONTENT_dark.png in Resources */,
 				4A41EC0C2BCF11FC0067F733 /* IMAGE_COMMENTS_dark.png in Resources */,
 				4A41EC1D2BCF570B0067F733 /* IMAGE_COMMENTS_light.png in Resources */,
@@ -1230,7 +1244,9 @@
 				4A41EBF72BCF04160067F733 /* UITableView+HeaderResizing.swift in Sources */,
 				4AF181482B913C6C004D6E0C /* UIRefreshControl+Helpers.swift in Sources */,
 				4AF777862B9096AA00E1ADF0 /* ErrorView.swift in Sources */,
+				4A1986A32BD12D9800BBADEB /* LoadMoreCell.swift in Sources */,
 				4A41EC132BCF4E110067F733 /* UIView+Container.swift in Sources */,
+				4A1986A12BD12D8A00BBADEB /* LoadMoreCellController.swift in Sources */,
 				4A41EC112BCF43290067F733 /* CellController.swift in Sources */,
 				4A0035322B3B55140042D3A9 /* UIView+Shimmering.swift in Sources */,
 				4AC0E8A32B3B1BCC0034DB28 /* ListViewController.swift in Sources */,
