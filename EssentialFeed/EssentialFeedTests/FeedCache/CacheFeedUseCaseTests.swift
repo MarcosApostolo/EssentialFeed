@@ -16,23 +16,23 @@ class CacheFeedUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [])
     }
     
-    func test_save_doesNotRequestCacheInsertionOnDeletionError() {
+    func test_save_doesNotRequestCacheInsertionOnDeletionError() throws {
         let (sut, store) = makeSUT()
         let deletionError = anyNSError()
         store.completeDeletion(with: deletionError)
         
-        sut.save(feed: uniqueImages().model) { _ in }
+        try? sut.save(feed: uniqueImages().model)
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed])
     }
     
-    func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() {
+    func test_save_requestsNewCacheInsertionWithTimestampOnSuccessfulDeletion() throws {
         let timestamp = Date()
         let feed = uniqueImages()
         let (sut, store) = makeSUT(currentDate: { timestamp })
         store.completeDeletionSuccessfully()
         
-        sut.save(feed: feed.model) { _ in }
+        try? sut.save(feed: feed.model)
         
         XCTAssertEqual(store.receivedMessages, [.deleteCachedFeed, .insert(feed.local, timestamp)])
     }
@@ -76,18 +76,13 @@ class CacheFeedUseCaseTests: XCTestCase {
     }
     
     private func expect(_ sut: LocalFeedLoader, toCompleteWithError expectedError: NSError?, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
-        let exp = expectation(description: "Wait for save completion")
         action()
         
-        var receivedError: Error?
-        sut.save(feed: uniqueImages().model) { result in
-            if case let Result.failure(error) = result { receivedError = error }
-            exp.fulfill()
+        do {
+            try sut.save(feed: uniqueImages().model)
+        } catch {
+            XCTAssertEqual(error as NSError?, expectedError, file: file, line: line)
         }
-        
-        wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
     }
     
 }

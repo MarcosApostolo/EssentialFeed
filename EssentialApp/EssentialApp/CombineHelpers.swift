@@ -97,7 +97,7 @@ extension DispatchQueue {
 
 extension FeedCache {
     func saveIgnoringResult(feed: [FeedImage]) {
-        save(feed: feed) { _ in }
+        try? save(feed: feed)
     }
     
     func saveIgnoringResult(_ page: Paginated<FeedImage>) {
