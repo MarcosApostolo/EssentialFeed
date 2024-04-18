@@ -15,8 +15,6 @@ class FeedImageDataStoreSpy: FeedImageDataStore {
     }
 
     private(set) var receivedMessages = [Message]()
-    private var retrievalCompletions = [(FeedImageDataStore.RetrievalResult) -> Void]()
-    private var insertionCompletions = [(FeedImageDataStore.InsertionResult) -> Void]()
     private var insertionResult: Result<Void, Error>?
     private var retrievalResult: Result<Data?, Error>?
 
