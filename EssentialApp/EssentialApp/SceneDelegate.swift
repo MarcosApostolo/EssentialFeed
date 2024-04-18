@@ -116,7 +116,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let localImageLoader = LocalFeedImageDataLoader(store: store)
         
         return localImageLoader
-            .loadImageDataPublisher(url: url)
+            .loadImageDataPublisher(from: url)
             .fallback(to: { [httpClient] in
                 httpClient
                     .getPublisher(url: url)
