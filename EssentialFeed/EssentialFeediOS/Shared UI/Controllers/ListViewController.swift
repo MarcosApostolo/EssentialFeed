@@ -17,6 +17,8 @@ public final class ListViewController: UITableViewController, ResourceLoadingVie
         }
     }()
     
+    private var onViewIsAppearing: ((ListViewController) -> Void)?
+    
     private(set) public var errorView = ErrorView()
     
     public override func viewDidLayoutSubviews() {
