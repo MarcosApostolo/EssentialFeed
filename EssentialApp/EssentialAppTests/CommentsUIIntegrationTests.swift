@@ -28,13 +28,18 @@ class CommentsUIIntegrationTests: XCTestCase {
     func test_loadCommentsActions_requestCommentsFromLoader() {
         let (sut, loader) = makeSUT()
         XCTAssertEqual(loader.loadCommentsCallCount, 0, "Expected no loading requests before view is loaded")
-
+        
         sut.simulateAppearance()
         XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expected a loading request once view is loaded")
-
+        
+        sut.simulateUserInitiatedReload()
+        XCTAssertEqual(loader.loadCommentsCallCount, 1, "Expected no request until previous completes")
+        
+        loader.completeCommentsLoading(at: 0)
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCommentsCallCount, 2, "Expected another loading request once user initiates a reload")
-
+        
+        loader.completeCommentsLoading(at: 1)
         sut.simulateUserInitiatedReload()
         XCTAssertEqual(loader.loadCommentsCallCount, 3, "Expected yet another loading request once user initiates another reload")
     }
@@ -99,7 +104,7 @@ class CommentsUIIntegrationTests: XCTestCase {
     
     func test_loadCommentsCompletion_dispatchesFromBackgroundToMainThread() {
         let (sut, loader) = makeSUT()
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
 
         let exp = expectation(description: "Wait for background queue")
         DispatchQueue.global().async {
@@ -112,7 +117,7 @@ class CommentsUIIntegrationTests: XCTestCase {
     func test_loadCommentsCompletion_rendersErrorMessageOnErrorUntilNextReload() {
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(sut.errorMessage, nil)
         
         loader.completeCommentsLoadingWithError(at: 0)
@@ -125,7 +130,7 @@ class CommentsUIIntegrationTests: XCTestCase {
     func test_tapOnErrorView_hidesErrorMessage() {
         let (sut, loader) = makeSUT()
         
-        sut.loadViewIfNeeded()
+        sut.simulateAppearance()
         XCTAssertEqual(sut.errorMessage, nil)
         
         loader.completeCommentsLoadingWithError(at: 0)
@@ -148,7 +153,7 @@ class CommentsUIIntegrationTests: XCTestCase {
                     }).eraseToAnyPublisher()
             })
 
-            sut?.loadViewIfNeeded()
+            sut?.simulateAppearance()
         }
 
         XCTAssertEqual(cancelCallCount, 0)
@@ -199,6 +204,7 @@ class CommentsUIIntegrationTests: XCTestCase {
 
         func completeCommentsLoading(with comments: [ImageComment] = [], at index: Int = 0) {
             requests[index].send(comments)
+            requests[index].send(completion: .finished)
         }
 
         func completeCommentsLoadingWithError(at index: Int = 0) {

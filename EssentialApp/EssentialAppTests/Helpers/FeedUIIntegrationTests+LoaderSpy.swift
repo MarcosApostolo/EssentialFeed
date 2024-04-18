@@ -35,12 +35,17 @@ class LoaderSpy: FeedImageDataLoader {
         return publisher.eraseToAnyPublisher()
     }
     
+    func loadMorePublisher() -> AnyPublisher<Paginated<FeedImage>, Error> {
+        let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
+        loadMoreRequests.append(publisher)
+        return publisher.eraseToAnyPublisher()
+    }
+    
     func completeFeedLoading(with feed: [FeedImage] = [], at index: Int = 0) {        
         feedRequests[index].send(Paginated(items: feed, loadMorePublisher: { [weak self] in
-            let publisher = PassthroughSubject<Paginated<FeedImage>, Error>()
-            self?.loadMoreRequests.append(publisher)
-            return publisher.eraseToAnyPublisher()
+            self?.loadMorePublisher() ?? Empty().eraseToAnyPublisher()
         }))
+        feedRequests[index].send(completion: .finished)
     }
     
     func completeLoadMore(with feed: [FeedImage] = [], lastPage: Bool = false, at index: Int = 0) {
