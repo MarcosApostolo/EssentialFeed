@@ -32,12 +32,7 @@ public class CoreDataFeedStore: FeedStore {
             throw StoreError.failedToLoadPersistentContainer(error)
         }
     }
-    
-    func performAsync(_ action: @escaping (NSManagedObjectContext) -> Void) {
-        let context = self.context
-        context.perform { action(context) }
-    }
-    
+
     func performSync<R>(_ action: (NSManagedObjectContext) -> Result<R, Error>) throws -> R {
         let context = self.context
         var result: Result<R, Error>!
@@ -45,35 +40,32 @@ public class CoreDataFeedStore: FeedStore {
         return try result.get()
     }
     
-    public func deleteCachedFeed(completion: @escaping FeedStore.DeletionCompletion) {
-        performAsync { context in
-            completion(Result(catching: {
+    public func deleteCachedFeed() throws {
+        try performSync { context in
+            Result {
                 try ManagedCache.deleteCache(in: context)
-            }))
+            }
         }
     }
     
-    public func insert(_ feed: [EssentialFeed.LocalFeedImage], timestamp: Date, completion: @escaping FeedStore.InsertionCompletion) {
-        performAsync { context in
-            completion(Result(catching: {
+    public func insert(_ feed: [LocalFeedImage], timestamp: Date) throws {
+        try performSync { context in
+            Result {
                 let managedCache = try ManagedCache.newUniqueInstance(in: context)
                 managedCache.timestamp = timestamp
                 managedCache.feed = ManagedFeedImage.images(from: feed, in: context)
-                
-                return try context.save()
-            }))
+                try context.save()
+            }
         }
     }
     
-    public func retrieve(completion: @escaping FeedStore.RetrievalCompletion) {
-        performAsync { context in
-            completion(Result(catching: {
-                try ManagedCache.find(in: context).map { cache in
-                    return CacheFeed(
-                        feed: cache.localFeed,
-                        timestamp: cache.timestamp)
+    public func retrieve() throws -> CacheFeed? {
+        try performSync { context in
+            Result {
+                try ManagedCache.find(in: context).map {
+                    CacheFeed(feed: $0.localFeed, timestamp: $0.timestamp)
                 }
-            }))
+            }
         }
     }
     
